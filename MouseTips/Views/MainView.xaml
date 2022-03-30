@@ -1,0 +1,59 @@
+﻿<Window
+    x:Class="MouseTips.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MouseTips.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainView"
+    Width="Auto"
+    Height="3000"
+    AllowsTransparency="True"
+    Background="{x:Null}"
+    Topmost="True"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Storyboard x:Key="storyboardFadeIn" Completed="FadeIn_Complated">
+            <DoubleAnimation
+                Storyboard.TargetName="timeText"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                To="0"
+                Duration="00:00:00" />
+            <DoubleAnimation
+                Storyboard.TargetName="timeText"
+                Storyboard.TargetProperty="Opacity"
+                From="0.0"
+                To="1.0"
+                Duration="00:00:01" />
+        </Storyboard>
+        <Storyboard x:Key="storyboardFadeOut" Completed="FadeOut_Complated">
+            <DoubleAnimation
+                Storyboard.TargetName="timeText"
+                Storyboard.TargetProperty="Opacity"
+                From="1.0"
+                To="0.0"
+                Duration="00:00:03" />
+            <DoubleAnimation
+                Storyboard.TargetName="timeText"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                From="0"
+                To="1000"
+                Duration="00:00:03" >
+                <DoubleAnimation.EasingFunction>
+                    <BounceEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+    <Grid>
+        <Canvas x:Name="canvas">
+            <TextBlock
+                x:Name="timeText"
+                Canvas.Top="0"
+                FontSize="60"
+                Foreground="White"
+                Opacity="0.0" />
+        </Canvas>
+    </Grid>
+</Window>
