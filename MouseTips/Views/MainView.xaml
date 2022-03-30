@@ -10,6 +10,7 @@
     Height="3000"
     AllowsTransparency="True"
     Background="{x:Null}"
+    ShowInTaskbar="False"
     Topmost="True"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -39,9 +40,9 @@
                 Storyboard.TargetProperty="(Canvas.Top)"
                 From="0"
                 To="1000"
-                Duration="00:00:03" >
+                Duration="00:00:03">
                 <DoubleAnimation.EasingFunction>
-                    <BounceEase EasingMode="EaseOut"/>
+                    <BounceEase EasingMode="EaseOut" />
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>

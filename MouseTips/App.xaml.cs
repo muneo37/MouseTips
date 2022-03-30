@@ -3,6 +3,7 @@
     using System.Windows;
     using MouseTips.Views;
     using MouseTips.ViewModels;
+    using System;
 
     /// <summary>
     /// Interaction logic for App.xaml
@@ -18,6 +19,32 @@
             w.Show();
 
             base.OnStartup(e);
+
+            var icon = GetResourceStream(new Uri("icon.ico", UriKind.Relative)).Stream;
+            var menu = new System.Windows.Forms.ContextMenuStrip();
+            menu.Items.Add("終了", null, Exit_Click);
+            var notifyIcon = new System.Windows.Forms.NotifyIcon
+            {
+                Visible = true,
+                Icon = new System.Drawing.Icon(icon),
+                Text = "MouseTips",
+                ContextMenuStrip = menu
+            };
+            notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(NotifyIcon_Click);
+        }
+
+        private void NotifyIcon_Click(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                //var wnd = new MainWindow();
+                //wnd.Show();
+            }
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            Shutdown();
         }
 
     }
