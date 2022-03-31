@@ -52,7 +52,8 @@
                 _onDisplay = true;
                 this.Top = point.Y;
                 this.Left = point.X;
-                this.timeText.Text = DateTime.Now.ToString("HH:mm:ss");
+                var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
+                this.timeText.Text = DateTime.Now.ToString("MM/dd\r\n") + dayOfWeek + DateTime.Now.ToString("\r\nHH:mm:ss");
                 var fadeIn = FindResource("storyboardFadeIn") as Storyboard;
                 fadeIn.Begin();
             }
