@@ -41,6 +41,7 @@ namespace MouseTips.Views
         {
             InitializeComponent();
             DispatcherTimer timer = new DispatcherTimer();
+
             timer.Tick += timer_Tick;
             timer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             timer.Start();

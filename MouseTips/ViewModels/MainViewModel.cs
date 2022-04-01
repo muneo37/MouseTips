@@ -8,5 +8,6 @@ namespace MouseTips.ViewModels
 {
     class MainViewModel
     {
+
     }
 }
