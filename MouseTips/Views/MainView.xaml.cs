@@ -30,6 +30,37 @@ namespace MouseTips.Views
             GetCursorPos(ref win32Point);
             return new Point(win32Point.X, win32Point.Y);
         }
+
+        /// <summary>
+        /// マウスが高速移動したか
+        /// </summary>
+        /// <param name="point">マウス座標値</param>
+        /// <returns>True:速い！False:遅い</returns>
+        private bool MouseFirst(Point point)
+        {
+            double x = this._prePoint.X - point.X;
+            double y = this._prePoint.Y - point.Y;
+            double nextLength = Math.Sqrt(x * x + y * y);
+            this._queue.Enqueue(nextLength);
+            if (this._queue.Count > 15)
+            {
+                this._queue.Dequeue();
+            }
+            this._prePoint = point;
+            double total = 0;
+            foreach (double length in _queue)
+            {
+                total += length;
+            }
+
+            var val = total / 30;
+            if (val > 40)
+            {
+                return true;
+            }
+
+                return false;
+        }
         #endregion
 
 
@@ -54,36 +85,31 @@ namespace MouseTips.Views
         /// <summary>
         /// タイマーイベント
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">イベントソース</param>
+        /// <param name="e">イベントデータ</param>
         private void timer_Tick(object sender, EventArgs e)
         {
-            Point point = GetMousePosition();
-            double x = this._prePoint.X - point.X;
-            double y = this._prePoint.Y - point.Y;
-            double nextLength = Math.Sqrt(x * x + y * y);
-            this._queue.Enqueue(nextLength);
-            if (this._queue.Count > 15)
+            if (!_onDisplay)
             {
-                this._queue.Dequeue();
-            }
-            this._prePoint = point;
-            double total = 0;
-            foreach (double length in _queue)
-            {
-                total += length;
-            }
+                //座標値取得
+                Point point = GetMousePosition();
+                                
+                if(MouseFirst(point))
+                {//マウスが高速移動した
 
-            var val = total / 30;
-            if ((val > 40) && (!_onDisplay))
-            {
-                _onDisplay = true;
-                this.Top = point.Y;
-                this.Left = point.X;
-                var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
-                this.timeText.Text = DateTime.Now.ToString("MM/dd\r\n") + dayOfWeek + DateTime.Now.ToString("\r\nHH:mm:ss");
-                var fadeIn = FindResource("storyboardFadeIn") as Storyboard;
-                fadeIn.Begin();
+                    return;
+                }
+
+                if (point.Y < 5)
+                {//画面の上にマウスが来た
+                    _onDisplay = true;
+                    this.Top = point.Y;
+                    this.Left = point.X;
+                    var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
+                    this.timeText.Text = DateTime.Now.ToString("MM/dd\r\n") + dayOfWeek + DateTime.Now.ToString("\r\nHH:mm:ss");
+                    var fadeIn = FindResource("storyboardFadeIn") as Storyboard;
+                    fadeIn.Begin();
+                }
             }
         }
 
