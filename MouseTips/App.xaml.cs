@@ -22,6 +22,7 @@
 
             var icon = GetResourceStream(new Uri("icon.ico", UriKind.Relative)).Stream;
             var menu = new System.Windows.Forms.ContextMenuStrip();
+            menu.Items.Add("設定", null, Setting_Click);
             menu.Items.Add("終了", null, Exit_Click);
             var notifyIcon = new System.Windows.Forms.NotifyIcon
             {
@@ -40,6 +41,12 @@
                 //var wnd = new MainWindow();
                 //wnd.Show();
             }
+        }
+
+        private void Setting_Click(object sender, EventArgs e)
+        {
+            var settingView = new SettingView();
+            settingView.Show();
         }
 
         private void Exit_Click(object sender, EventArgs e)
