@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
@@ -16,6 +17,7 @@ namespace MouseTips.Views
         private Queue<double> _queue = new Queue<double>();
         private Point _prePoint;
         private bool _onDisplay;
+        private List<Screen> _screen = new List<Screen>();
         #endregion
 
 
@@ -59,8 +61,31 @@ namespace MouseTips.Views
                 return true;
             }
 
-                return false;
+            return false;
         }
+
+        /// <summary>
+        /// 画面上部にマウスが移動した
+        /// </summary>
+        /// <param name="point">マウス座標位置</param>
+        /// <returns></returns>
+        private bool OnScreenTop(Point point)
+        {
+            foreach (Screen s in _screen)
+            {
+                if (s.Bounds.X < point.X && point.X < (s.Bounds.X + s.Bounds.Width))
+                {
+                    if (point.Y < s.Bounds.Y + 5)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+
+        }
+
+
         #endregion
 
 
@@ -71,8 +96,13 @@ namespace MouseTips.Views
         public MainView()
         {
             InitializeComponent();
-            DispatcherTimer timer = new DispatcherTimer();
 
+            foreach (Screen s in Screen.AllScreens)
+            {
+                _screen.Add(s);
+            }
+
+            DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += timer_Tick;
             timer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             timer.Start();
@@ -93,14 +123,14 @@ namespace MouseTips.Views
             {
                 //座標値取得
                 Point point = GetMousePosition();
-                                
-                if(MouseFirst(point))
+
+                if (MouseFirst(point))
                 {//マウスが高速移動した
 
                     return;
                 }
 
-                if (point.Y < 5)
+                if (OnScreenTop(point))
                 {//画面の上にマウスが来た
                     _onDisplay = true;
                     this.Top = point.Y;
