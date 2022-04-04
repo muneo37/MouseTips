@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
@@ -18,6 +19,7 @@ namespace MouseTips.Views
         private Point _prePoint;
         private bool _onDisplay;
         private List<Screen> _screen = new List<Screen>();
+        private double _screenBottom;
         #endregion
 
 
@@ -77,6 +79,7 @@ namespace MouseTips.Views
                 {
                     if (point.Y < s.Bounds.Y + 5)
                     {
+                        _screenBottom = s.Bounds.Height;
                         return true;
                     }
                 }
@@ -143,12 +146,30 @@ namespace MouseTips.Views
             }
         }
 
+        /// <summary>
+        /// フェードインアニメーション完了イベント
+        /// </summary>
+        /// <param name="sender">イベントソース</param>
+        /// <param name="e">イベントデータ</param>
         private void FadeIn_Complated(object sender, EventArgs e)
         {
             var fadeOut = FindResource("storyboardFadeOut") as Storyboard;
+            var frame = new DoubleAnimation();
+            frame.From = 0;
+            frame.To = _screenBottom;
+            frame.Duration = new Duration(TimeSpan.FromSeconds(3));
+            frame.EasingFunction = new BounceEase();
+            Storyboard.SetTargetName(frame, "timeText");
+            Storyboard.SetTargetProperty(frame, new PropertyPath(Canvas.TopProperty));
+            fadeOut.Children.Add(frame);
             fadeOut.Begin();
         }
 
+        /// <summary>
+        /// フェードアウトアニメーション完了イベント
+        /// </summary>
+        /// <param name="sender">イベントソース</param>
+        /// <param name="e">イベントデータ</param>
         private void FadeOut_Complated(object sender, EventArgs e)
         {
             _onDisplay = false;

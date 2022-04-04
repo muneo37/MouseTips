@@ -35,7 +35,7 @@
                 From="1.0"
                 To="0.0"
                 Duration="00:00:03" />
-            <DoubleAnimation
+            <!--<DoubleAnimation x:Name="doubleAnimationToBottom"
                 Storyboard.TargetName="timeText"
                 Storyboard.TargetProperty="(Canvas.Top)"
                 From="0"
@@ -44,7 +44,7 @@
                 <DoubleAnimation.EasingFunction>
                     <BounceEase EasingMode="EaseOut" />
                 </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
+            </DoubleAnimation>-->
         </Storyboard>
     </Window.Resources>
     <Grid>
