@@ -11,6 +11,7 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock Text="hello CostomControl" Foreground="White"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

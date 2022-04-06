@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MouseTips.Views"
+    xmlns:cc="clr-namespace:MouseTips.CostomControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MouseTips"
     Width="400"
@@ -13,5 +14,7 @@
     WindowStyle="None"
     AllowsTransparency="True"
     >
-    <Grid />
+    <Grid >
+        <cc:TimePicker/>
+    </Grid>
 </Window>
