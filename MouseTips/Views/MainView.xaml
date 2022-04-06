@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MouseTips.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainView"
+    Title="MouseTips"
     Width="Auto"
     Height="3000"
     AllowsTransparency="True"
@@ -35,16 +35,6 @@
                 From="1.0"
                 To="0.0"
                 Duration="00:00:03" />
-            <!--<DoubleAnimation x:Name="doubleAnimationToBottom"
-                Storyboard.TargetName="timeText"
-                Storyboard.TargetProperty="(Canvas.Top)"
-                From="0"
-                To="1000"
-                Duration="00:00:03">
-                <DoubleAnimation.EasingFunction>
-                    <BounceEase EasingMode="EaseOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>-->
         </Storyboard>
     </Window.Resources>
     <Grid>
