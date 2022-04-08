@@ -47,6 +47,7 @@
         {
             var settingView = new SettingView();
             settingView.Show();
+
         }
 
         private void Exit_Click(object sender, EventArgs e)

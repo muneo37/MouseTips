@@ -55,9 +55,18 @@ namespace MouseTips.CostomControls
         {
             base.OnApplyTemplate();
 
-            var listbox = GetTemplateChild("listBox") as ListBox;
+            var border = VisualTreeHelper.GetChild(GetTemplateChild("listBox"), 0) as Border;
 
+            if (border != null)
+            {
+                var listBoxScroll = border.Child as ScrollViewer;
+                if (listBoxScroll != null)
+                {
+                    listBoxScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
 
+                    listBoxScroll.ScrollToEnd();
+                }
+            }
 
         }
 
