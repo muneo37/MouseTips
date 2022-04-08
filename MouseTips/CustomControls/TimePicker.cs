@@ -50,5 +50,16 @@ namespace MouseTips.CostomControls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TimePicker), new FrameworkPropertyMetadata(typeof(TimePicker)));
         }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            var listbox = GetTemplateChild("listBox") as ListBox;
+
+
+
+        }
+
     }
 }
