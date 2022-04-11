@@ -13,23 +13,13 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <ListBox x:Name="listBox">
-                            <ListBoxItem Content="01" />
-                            <ListBoxItem Content="02" />
-                            <ListBoxItem Content="03" />
-                            <ListBoxItem Content="04" />
-                            <ListBoxItem Content="05" />
-                            <ListBoxItem Content="06" />
-                            <ListBoxItem Content="07" />
-                            <ListBoxItem Content="08" />
-                            <ListBoxItem Content="09" />
-                            <ListBoxItem Content="10" />
-                            <ListBoxItem Content="11" />
-                            <ListBoxItem Content="12" />
-                            <ListBoxItem Content="13" />
-                            <ListBoxItem Content="14" />
-                            <ListBoxItem Content="15" />
-                        </ListBox>
+                        <ItemsControl ItemsSource="{Binding Hour}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="100" Foreground="Black"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

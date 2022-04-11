@@ -51,24 +51,27 @@ namespace MouseTips.CostomControls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TimePicker), new FrameworkPropertyMetadata(typeof(TimePicker)));
         }
 
-        public override void OnApplyTemplate()
+        public TimePicker()
         {
-            base.OnApplyTemplate();
-
-            var border = VisualTreeHelper.GetChild(GetTemplateChild("listBox"), 0) as Border;
-
-            if (border != null)
+            this.Hour = Enumerable.Range(1, 24).Select(x => new HourTemplate()
             {
-                var listBoxScroll = border.Child as ScrollViewer;
-                if (listBoxScroll != null)
-                {
-                    listBoxScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
-
-                    listBoxScroll.ScrollToEnd();
-                }
-            }
-
+                hourText = x.ToString()
+            }).ToList();
         }
 
+        public static readonly DependencyProperty HourProperty = DependencyProperty.Register(
+            nameof(Hour), typeof(List<HourTemplate>), typeof(TimePicker), new UIPropertyMetadata(null));
+
+        public List<HourTemplate> Hour
+        {
+            get { return (List<HourTemplate>)GetValue(HourProperty); }
+            set { SetValue(HourProperty, value); }
+        }
+
+        public class HourTemplate
+        {
+            public string hourText;
+        }
     }
+
 }

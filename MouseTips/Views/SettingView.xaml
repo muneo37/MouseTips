@@ -15,6 +15,6 @@
     AllowsTransparency="True"
     >
     <Grid >
-        <cc:TimePicker/>
+        <cc:TimePicker Background="AliceBlue"/>
     </Grid>
 </Window>
