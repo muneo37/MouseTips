@@ -68,10 +68,12 @@ namespace MouseTips.CostomControls
             set { SetValue(HourProperty, value); }
         }
 
-        public class HourTemplate
-        {
-            public string hourText;
-        }
     }
+
+    public class HourTemplate
+    {
+        public string hourText;
+    }
+
 
 }

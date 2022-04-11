@@ -7,19 +7,28 @@
     <Style TargetType="{x:Type cc:TimePicker}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type cc:TimePicker}">
+                <ControlTemplate>
                     <Border
                         Height="100"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <ItemsControl ItemsSource="{Binding Hour}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="100" Foreground="Black"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                            <StackPanel>
+                                <TextBlock Text="01" />
+                                <TextBlock Text="02" />
+                                <TextBlock Text="03" />
+                                <TextBlock Text="04" />
+                                <TextBlock Text="05" />
+                                <TextBlock Text="06" />
+                                <TextBlock Text="07" />
+                                <TextBlock Text="08" />
+                                <TextBlock Text="09" />
+                                <TextBlock Text="10" />
+                                <TextBlock Text="11" />
+                                <TextBlock Text="12" />
+                            </StackPanel>
+                        </ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
