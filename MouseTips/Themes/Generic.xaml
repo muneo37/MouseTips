@@ -4,29 +4,42 @@
     xmlns:cc="clr-namespace:MouseTips.CostomControls">
 
 
+    <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Foreground" Value="White"/>
+        <!--<Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="AliceBlue"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Foreground" Value="Yellow"/>
+            </Trigger>
+        </Style.Triggers>-->
+    </Style>
     <Style TargetType="{x:Type cc:TimePicker}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
                     <Border
-                        Height="100"
+                        Height="20"
+                        Width="200"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
                         <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                            <StackPanel>
-                                <TextBlock Text="01" />
-                                <TextBlock Text="02" />
-                                <TextBlock Text="03" />
-                                <TextBlock Text="04" />
-                                <TextBlock Text="05" />
-                                <TextBlock Text="06" />
-                                <TextBlock Text="07" />
-                                <TextBlock Text="08" />
-                                <TextBlock Text="09" />
-                                <TextBlock Text="10" />
-                                <TextBlock Text="11" />
-                                <TextBlock Text="12" />
+                            <StackPanel Background="#222222">
+                                <TextBlock Text="01" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="02" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="03" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="04" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="05" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="06" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="07" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="08" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="09" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="10" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="11" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="12" Style="{StaticResource TextBlockStyle}"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Border>
