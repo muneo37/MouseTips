@@ -21,16 +21,19 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
-            <RowDefinition />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <Button Click="OnButtonClick" Content="スクロールして" />
         <Canvas Grid.Row="1" Background="White">
-            <StackPanel x:Name="hourStack" Canvas.Top="0">
-                <TextBlock Text="01" Height="20"/>
-                <TextBlock Text="02" Height="20"/>
-                <TextBlock Text="03" Height="20"/>
-            </StackPanel>
-
+            <ItemsControl ItemsSource="{Binding HourList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text}" Foreground="Black"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Canvas>
+        <TextBlock Grid.Row="2" Text="{Binding Test, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TimePicker2}}}" Foreground="Black" Background="Cyan"/>
     </Grid>
 </UserControl>
