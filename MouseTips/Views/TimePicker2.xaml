@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <Button Click="OnButtonClick" Content="スクロールして" />
         <Canvas Grid.Row="1" Background="White">
-            <ItemsControl ItemsSource="{Binding HourList}">
+            <ItemsControl ItemsSource="{Binding HourList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TimePicker2}}}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Text}" Foreground="Black"/>

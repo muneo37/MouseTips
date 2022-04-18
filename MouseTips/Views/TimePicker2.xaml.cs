@@ -23,11 +23,11 @@ namespace MouseTips.Views
             HourList.Add(hour1);
 
             var hour2 = new hourText();
-            hour1.Text = "02";
+            hour2.Text = "02";
             HourList.Add(hour2);
 
             var hour3 = new hourText();
-            hour1.Text = "03";
+            hour3.Text = "03";
             HourList.Add(hour3);
 
             Test = "aaaaa";
@@ -35,22 +35,15 @@ namespace MouseTips.Views
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            var fadeIn = FindResource("storyboardFadeIn") as Storyboard;
-            fadeIn.Begin();
+            //var fadeIn = FindResource("storyboardFadeIn") as Storyboard;
+            //fadeIn.Begin();
+
+            Test = "bbbbb";
         }
 
         public static readonly DependencyProperty HourListProperty = DependencyProperty.Register("HourList", typeof(List<hourText>), typeof(TimePicker2));
 
-        public static readonly DependencyProperty TestProperty = DependencyProperty.Register("Test", typeof(string), typeof(TimePicker2), new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTestPropertyChanged));
-
-        private static void OnTestPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            var control = sender as TimePicker2;
-
-            if (control == null)
-                return;
-        }
-
+        public static readonly DependencyProperty TestProperty = DependencyProperty.Register("Test", typeof(string), typeof(TimePicker2));
 
         public string Test
         {
