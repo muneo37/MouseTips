@@ -9,31 +9,38 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <Storyboard x:Key="storyboardFadeIn">
+        <Storyboard x:Key="storyboardSlideDown" Completed="SlideDown_Completed">
             <DoubleAnimation
-                Storyboard.TargetName="hourStack"
+                Storyboard.TargetName="hourItems"
                 Storyboard.TargetProperty="(Canvas.Top)"
-                From="0"
-                To="20"
+                From="-20"
+                To="0"
                 Duration="00:00:01" />
+        </Storyboard>
+        <Storyboard x:Key="storyboardSlideReset" Completed="SlideReset_Completed">
+            <DoubleAnimation
+                Storyboard.TargetName="hourItems"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                To="-20"
+                Duration="00:00:00" />
         </Storyboard>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Button Click="OnButtonClick" Content="スクロールして" />
         <Canvas Grid.Row="1" Background="White">
-            <ItemsControl ItemsSource="{Binding HourList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TimePicker2}}}">
+            <ItemsControl x:Name="hourItems" Canvas.Top="-20" ItemsSource="{Binding HourList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TimePicker2}}, Mode=TwoWay}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Text}" Foreground="Black"/>
+                        <TextBlock Text="{Binding Text, Mode=TwoWay}" Foreground="Black" Height="20"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Canvas>
-        <TextBlock Grid.Row="2" Text="{Binding Test, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TimePicker2}}}" Foreground="Black" Background="Cyan"/>
+        <TextBox Text="777777" x:Name="aaa" Grid.Row="2" Background="Cyan" Foreground="Black"/>
     </Grid>
 </UserControl>

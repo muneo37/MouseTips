@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -16,50 +17,67 @@ namespace MouseTips.Views
         {
             InitializeComponent();
 
-            HourList = new List<hourText>();
+            HourList = new ObservableCollection<hourText>();
+            var hour0 = new hourText("00");
+            HourList.Add(hour0);
 
-            var hour1 = new hourText();
-            hour1.Text = "01";
+            var hour1 = new hourText("01");
             HourList.Add(hour1);
 
-            var hour2 = new hourText();
-            hour2.Text = "02";
+            var hour2 = new hourText("02");
             HourList.Add(hour2);
 
-            var hour3 = new hourText();
-            hour3.Text = "03";
+            var hour3 = new hourText("03");
             HourList.Add(hour3);
 
-            Test = "aaaaa";
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            //var fadeIn = FindResource("storyboardFadeIn") as Storyboard;
-            //fadeIn.Begin();
-
-            Test = "bbbbb";
+            var fadeIn = FindResource("storyboardSlideDown") as Storyboard;
+            fadeIn.Begin();
         }
 
-        public static readonly DependencyProperty HourListProperty = DependencyProperty.Register("HourList", typeof(List<hourText>), typeof(TimePicker2));
-
-        public static readonly DependencyProperty TestProperty = DependencyProperty.Register("Test", typeof(string), typeof(TimePicker2));
-
-        public string Test
+        private void SlideDown_Completed(object sender, EventArgs e)
         {
-            get { return (string)GetValue(TestProperty); }
-            set { SetValue(TestProperty, value); }
+            var reset = FindResource("storyboardSlideReset") as Storyboard;
+            reset.Begin();
+            HourList[1] = new hourText("00");
+            HourList[2] = new hourText("01");
+            HourList[3] = new hourText("02");
         }
 
-        public List<hourText> HourList
+        private void SlideReset_Completed(object sender, EventArgs e)
         {
-            get { return (List<hourText>)GetValue(HourListProperty); }
+
+
+        }
+
+        public DependencyProperty HourListProperty = DependencyProperty.Register("HourList", typeof(ObservableCollection<hourText>), typeof(TimePicker2), new FrameworkPropertyMetadata(default(ObservableCollection<hourText>), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public ObservableCollection<hourText> HourList
+        {
+            get { return (ObservableCollection<hourText>)GetValue(HourListProperty); }
             set { SetValue(HourListProperty, value); }
+        }
+
+        private void Storyboard_Completed(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Storyboard_Completed_1(object sender, EventArgs e)
+        {
+
         }
     }
 
     public class hourText
     {
+        public hourText(string text)
+        {
+            Text = text;
+        }
         public string Text { get; set; }
     }
 }
