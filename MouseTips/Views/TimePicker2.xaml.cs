@@ -37,9 +37,9 @@ namespace MouseTips.Views
         {
             var reset = FindResource("storyboardSlideReset") as Storyboard;
             reset.Begin();
-            HourList[1] = new hourText("00");
-            HourList[2] = new hourText("01");
-            HourList[3] = new hourText("02");
+
+            HourList.Move(HourList.Count - 1, 0);
+
         }
 
         public readonly static DependencyProperty HourListProperty = DependencyProperty.Register("HourList", typeof(ObservableCollection<hourText>), typeof(TimePicker2), new FrameworkPropertyMetadata(default(ObservableCollection<hourText>), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
