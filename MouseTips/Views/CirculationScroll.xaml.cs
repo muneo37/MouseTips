@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace MouseTips.Views
 {
@@ -23,6 +15,65 @@ namespace MouseTips.Views
         public CirculationScroll()
         {
             InitializeComponent();
+
+            ScrollList = new ObservableCollection<ScrollText>();
+
+            for (int n = 0; n < 24; n++)
+            {
+                var t = n.ToString("00");
+                var ScrollT = new ScrollText(t);
+                ScrollList.Add(ScrollT);
+            }
+        }
+
+        public readonly static DependencyProperty ScrollListProperty = DependencyProperty.Register("ScrollList", typeof(ObservableCollection<ScrollText>), typeof(CirculationScroll), new FrameworkPropertyMetadata(default(ObservableCollection<ScrollText>), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public ObservableCollection<ScrollText> ScrollList
+        {
+            get { return (ObservableCollection<ScrollText>)GetValue(ScrollListProperty); }
+            set { SetValue(ScrollListProperty, value); }
+        }
+
+        private void SlideDown_Completed(object sender, EventArgs e)
+        {
+            var reset = FindResource("storyboardSlideReset") as Storyboard;
+            reset.Begin();
+
+            ScrollList.Move(ScrollList.Count - 1, 0);
+        }
+
+        private void SlideUp_Completed(object sender, EventArgs e)
+        {
+            var reset = FindResource("storyboardSlideReset") as Storyboard;
+            reset.Begin();
+
+            ScrollList.Move(0, ScrollList.Count - 1);
+        }
+
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                var slideDown = FindResource("storyboardSlideDown") as Storyboard;
+                slideDown.Begin();
+            }
+            else
+            {
+                var SlideUp = FindResource("storyboardSlideUp") as Storyboard;
+                SlideUp.Begin();
+            }
+
+            base.OnMouseWheel(e);
         }
     }
+
+    public class ScrollText
+    {
+        public ScrollText(string text)
+        {
+            Text = text;
+        }
+        public string Text { get; set; }
+    }
+
 }

@@ -19,6 +19,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <local:TimePicker2 Grid.Row="0"/>
-        <local:TimePicker2 Grid.Row="1"/>
+        <local:CirculationScroll Grid.Row="1"/>
     </Grid>
 </Window>

@@ -9,29 +9,31 @@
     <UserControl.Resources>
         <Storyboard x:Key="storyboardSlideDown" Completed="SlideDown_Completed">
             <DoubleAnimation
-                Storyboard.TargetName="hourItems"
+                Storyboard.TargetName="scrollItems"
                 Storyboard.TargetProperty="(Canvas.Top)"
                 From="-20"
                 To="0"
-                Duration="0:0:0.5" />
+                Duration="0:0:0.2" />
+        </Storyboard>
+        <Storyboard x:Key="storyboardSlideUp" Completed="SlideUp_Completed">
+            <DoubleAnimation
+                Storyboard.TargetName="scrollItems"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                From="-20"
+                To="-40"
+                Duration="0:0:0.2" />
         </Storyboard>
         <Storyboard x:Key="storyboardSlideReset">
             <DoubleAnimation
-                Storyboard.TargetName="hourItems"
+                Storyboard.TargetName="scrollItems"
                 Storyboard.TargetProperty="(Canvas.Top)"
                 To="-20"
                 Duration="0:0:0" />
         </Storyboard>
     </UserControl.Resources>
     <Grid ClipToBounds="True" Height="100">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
-        <Button Click="OnButtonClick" Content="スクロールして" />
-        <Canvas Grid.Row="1" Background="White" ClipToBounds="True">
-            <ItemsControl x:Name="hourItems" Canvas.Top="-20" ItemsSource="{Binding HourList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TimePicker2}}, Mode=TwoWay}">
+        <Canvas Background="White" ClipToBounds="True">
+            <ItemsControl x:Name="scrollItems" Canvas.Top="-20" ItemsSource="{Binding ScrollList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CirculationScroll}}, Mode=TwoWay}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Text, Mode=TwoWay}" Foreground="Black" Height="20"/>
