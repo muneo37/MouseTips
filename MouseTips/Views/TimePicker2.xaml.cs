@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 using MouseTips;
 
@@ -50,6 +51,20 @@ namespace MouseTips.Views
             set { SetValue(HourListProperty, value); }
         }
 
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                var fadeIn = FindResource("storyboardSlideDown") as Storyboard;
+                fadeIn.Begin();
+            }
+            else
+            {
+
+            }
+
+            base.OnMouseWheel(e);
+        }
     }
 
     public class hourText
