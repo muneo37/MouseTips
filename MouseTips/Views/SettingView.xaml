@@ -14,6 +14,6 @@
     AllowsTransparency="True"
     >
     <Grid >
-        <local:TimePicker/>
+        <local:TimePicker Background="#333333"/>
     </Grid>
 </Window>

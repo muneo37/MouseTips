@@ -5,11 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MouseTips.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="200" d:DesignWidth="400"
+             Height="30">
     <Grid>
         <Button Content="test" Click="OnClick" Height="30"/>
-        <Grid x:Name="ScrollGrid" Visibility="Hidden" Background="#333333" Height="200">
-            <local:CirculationScroll/>
-        </Grid>
     </Grid>
 </UserControl>

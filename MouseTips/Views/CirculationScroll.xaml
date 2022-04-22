@@ -33,7 +33,7 @@
                 Duration="0:0:0" />
         </Storyboard>
     </UserControl.Resources>
-    <Grid Height="100" ClipToBounds="True">
+    <Grid ClipToBounds="True">
         <Canvas x:Name="slideCanvas" ClipToBounds="True">
             <ItemsControl
                     x:Name="scrollItems"

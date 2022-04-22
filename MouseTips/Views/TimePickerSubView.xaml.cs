@@ -10,26 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MouseTips.Views
 {
     /// <summary>
-    /// TimePicker.xaml の相互作用ロジック
+    /// TimePickerSubView.xaml の相互作用ロジック
     /// </summary>
-    public partial class TimePicker : UserControl
+    public partial class TimePickerSubView : Window
     {
-        public TimePicker()
+        public TimePickerSubView()
         {
             InitializeComponent();
-        }
-
-        private void OnClick(object sender, RoutedEventArgs e)
-        {
-            var subView = new TimePickerSubView();
-            var point = this.PointToScreen(new(0.0d, 0.0d));
-            subView.ShowDialog();
         }
     }
 }
