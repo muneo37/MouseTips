@@ -4,21 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MouseTips.Views"
-    xmlns:cc="clr-namespace:MouseTips.CostomControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="400"
     Height="300"
     mc:Ignorable="d"
-    Background="Black"
+    Background="DimGray"
+    Foreground="Gainsboro"
     WindowStyle="None"
     AllowsTransparency="True"
     >
     <Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <local:TimePicker2 Grid.Row="0"/>
-        <local:CirculationScroll Grid.Row="1"/>
+        <local:TimePicker/>
     </Grid>
 </Window>

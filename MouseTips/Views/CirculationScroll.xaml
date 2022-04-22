@@ -1,11 +1,13 @@
-﻿<UserControl x:Class="MouseTips.Views.CirculationScroll"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MouseTips.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="MouseTips.Views.CirculationScroll"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MouseTips.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <Storyboard x:Key="storyboardSlideDown" Completed="SlideDown_Completed">
             <DoubleAnimation
@@ -13,7 +15,7 @@
                 Storyboard.TargetProperty="(Canvas.Top)"
                 From="-20"
                 To="0"
-                Duration="0:0:0.2" />
+                Duration="0:0:0.4" />
         </Storyboard>
         <Storyboard x:Key="storyboardSlideUp" Completed="SlideUp_Completed">
             <DoubleAnimation
@@ -21,7 +23,7 @@
                 Storyboard.TargetProperty="(Canvas.Top)"
                 From="-20"
                 To="-40"
-                Duration="0:0:0.2" />
+                Duration="0:0:0.4" />
         </Storyboard>
         <Storyboard x:Key="storyboardSlideReset">
             <DoubleAnimation
@@ -31,12 +33,17 @@
                 Duration="0:0:0" />
         </Storyboard>
     </UserControl.Resources>
-    <Grid ClipToBounds="True" Height="100">
-        <Canvas Background="White" ClipToBounds="True">
-            <ItemsControl x:Name="scrollItems" Canvas.Top="-20" ItemsSource="{Binding ScrollList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CirculationScroll}}, Mode=TwoWay}">
+    <Grid Height="100" ClipToBounds="True">
+        <Canvas x:Name="slideCanvas" ClipToBounds="True">
+            <ItemsControl
+                    x:Name="scrollItems"
+                    Canvas.Top="-20"
+                    ItemsSource="{Binding ScrollList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CirculationScroll}}, Mode=TwoWay}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Text, Mode=TwoWay}" Foreground="Black" Height="20"/>
+                        <TextBlock
+                                Height="20"
+                                Text="{Binding Text, Mode=TwoWay}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
