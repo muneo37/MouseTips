@@ -29,6 +29,14 @@ namespace MouseTips.Views
         {
             var subView = new TimePickerSubView();
             var point = this.PointToScreen(new(0.0d, 0.0d));
+
+            subView.Left = point.X;
+            subView.Top = point.Y;
+
+            subView.Background = this.Background;
+            subView.Foreground = this.Foreground;
+            subView.Width = this.Width;
+
             subView.ShowDialog();
         }
     }

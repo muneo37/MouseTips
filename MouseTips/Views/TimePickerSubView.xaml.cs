@@ -23,5 +23,15 @@ namespace MouseTips.Views
         {
             InitializeComponent();
         }
+
+        private void OnOK(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void OnCancel(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
