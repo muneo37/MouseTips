@@ -23,6 +23,10 @@ namespace MouseTips.Views
         public TimePicker()
         {
             InitializeComponent();
+
+            this.hourText.Text = "hour";
+            this.minuteText.Text = "minute";
+            this.AmPmText.Text = "AM";
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
