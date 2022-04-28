@@ -9,9 +9,12 @@
     d:DesignHeight="200"
     d:DesignWidth="400"
     mc:Ignorable="d">
+
     <UserControl.Resources>
+        <SolidColorBrush x:Key="DarkBackground" Color="#333333" />
+        <SolidColorBrush x:Key="DarkForeground" Color="Gainsboro" />
         <Style TargetType="TextBlock">
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
         </Style>
         <Style TargetType="Button">
@@ -20,7 +23,10 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Rectangle RadiusX="5" RadiusY="5" Fill="#333333"/>
+                            <Rectangle
+                                Fill="{StaticResource DarkBackground}"
+                                RadiusX="5"
+                                RadiusY="5" />
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
                     </ControlTemplate>

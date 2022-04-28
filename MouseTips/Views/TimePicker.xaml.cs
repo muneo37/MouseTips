@@ -37,8 +37,8 @@ namespace MouseTips.Views
             subView.Left = point.X;
             subView.Top = point.Y;
 
-            subView.Background = this.Background;
-            subView.Foreground = this.Foreground;
+            subView.Background = (SolidColorBrush)this.FindResource("DarkBackground");
+            subView.Foreground = (SolidColorBrush)this.FindResource("DarkForeground");
             subView.Width = this.Width;
 
             subView.ShowDialog();
