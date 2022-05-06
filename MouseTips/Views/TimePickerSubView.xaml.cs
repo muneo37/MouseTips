@@ -13,16 +13,29 @@ namespace MouseTips.Views
         {
             InitializeComponent();
 
-            var HourList = new ObservableCollection<ScrollText>();
+            var hourList = new ObservableCollection<ScrollText>();
 
             for (int n = 0; n < 24; n++)
             {
-                var t = n.ToString("00");
-                var ScrollT = new ScrollText(t);
-                HourList.Add(ScrollT);
+                var ht = n.ToString("00");
+                var hScrollT = new ScrollText(ht);
+                hourList.Add(hScrollT);
             }
+            this.hourScroll.ScrollList = hourList;
 
-            this.hourScroll.ScrollList = HourList;
+            var minuteList = new ObservableCollection<ScrollText>();
+            for (int n = 0; n < 60; n++)
+            {
+                var mt = n.ToString("00");
+                var mScrollT = new ScrollText(mt);
+                minuteList.Add(mScrollT);
+            }
+            this.minuteScroll.ScrollList = minuteList;
+
+            var ampmList = new ObservableCollection<ScrollText>();
+            ampmList.Add(new ScrollText("AM"));
+            ampmList.Add(new ScrollText("PM"));
+            this.ampmScroll.ScrollList = ampmList;
         }
 
         private void OnOK(object sender, RoutedEventArgs e)
