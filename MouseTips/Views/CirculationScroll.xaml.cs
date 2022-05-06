@@ -18,12 +18,6 @@ namespace MouseTips.Views
 
             ScrollList = new ObservableCollection<ScrollText>();
 
-            for (int n = 0; n < 24; n++)
-            {
-                var t = n.ToString("00");
-                var ScrollT = new ScrollText(t);
-                ScrollList.Add(ScrollT);
-            }
         }
 
         public readonly static DependencyProperty ScrollListProperty = DependencyProperty.Register("ScrollList", typeof(ObservableCollection<ScrollText>), typeof(CirculationScroll), new FrameworkPropertyMetadata(default(ObservableCollection<ScrollText>), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));

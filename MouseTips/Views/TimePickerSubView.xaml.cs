@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MouseTips.Views
 {
@@ -19,9 +8,21 @@ namespace MouseTips.Views
     /// </summary>
     public partial class TimePickerSubView : Window
     {
+
         public TimePickerSubView()
         {
             InitializeComponent();
+
+            var HourList = new ObservableCollection<ScrollText>();
+
+            for (int n = 0; n < 24; n++)
+            {
+                var t = n.ToString("00");
+                var ScrollT = new ScrollText(t);
+                HourList.Add(ScrollT);
+            }
+
+            this.hourScroll.ScrollList = HourList;
         }
 
         private void OnOK(object sender, RoutedEventArgs e)
