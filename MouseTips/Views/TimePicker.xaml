@@ -8,6 +8,7 @@
     Height="30"
     d:DesignHeight="200"
     d:DesignWidth="400"
+    FontSize="13"
     mc:Ignorable="d">
 
     <UserControl.Resources>

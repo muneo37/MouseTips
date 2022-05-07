@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="TimePickerSubView"
     Width="400"
-    Height="200"
+    Height="300"
     AllowsTransparency="True"
     WindowStartupLocation="Manual"
     WindowStyle="None"
@@ -43,6 +43,15 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <Canvas Grid.Column="0" Grid.ColumnSpan="3">
+                <Rectangle
+                    Canvas.Top="150"
+                    Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    Height="30"
+                    Fill="CornflowerBlue"
+                    RadiusX="5"
+                    RadiusY="5" />
+            </Canvas>
             <local:CirculationScroll x:Name="hourScroll" Grid.Column="0" />
             <local:CirculationScroll x:Name="minuteScroll" Grid.Column="1" />
             <local:CirculationScroll x:Name="ampmScroll" Grid.Column="2" />

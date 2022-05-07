@@ -16,9 +16,9 @@ namespace MouseTips.Views
 
             var hourList = new ObservableCollection<ScrollText>();
 
-            for (int n = 0; n < 24; n++)
+            for (int n = 0; n < 12; n++)
             {
-                var ht = n.ToString("00");
+                var ht = (n + 1).ToString("0");
                 var hScrollT = new ScrollText(ht);
                 hourList.Add(hScrollT);
             }

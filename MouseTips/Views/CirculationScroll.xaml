@@ -13,23 +13,23 @@
             <DoubleAnimation
                 Storyboard.TargetName="scrollItems"
                 Storyboard.TargetProperty="(Canvas.Top)"
-                From="-20"
+                From="-30"
                 To="0"
-                Duration="0:0:0.4" />
+                Duration="0:0:0.2" />
         </Storyboard>
         <Storyboard x:Key="storyboardSlideUp" Completed="SlideUp_Completed">
             <DoubleAnimation
                 Storyboard.TargetName="scrollItems"
                 Storyboard.TargetProperty="(Canvas.Top)"
-                From="-20"
-                To="-40"
-                Duration="0:0:0.4" />
+                From="-30"
+                To="-60"
+                Duration="0:0:0.2" />
         </Storyboard>
         <Storyboard x:Key="storyboardSlideReset">
             <DoubleAnimation
                 Storyboard.TargetName="scrollItems"
                 Storyboard.TargetProperty="(Canvas.Top)"
-                To="-20"
+                To="-30"
                 Duration="0:0:0" />
         </Storyboard>
     </UserControl.Resources>
@@ -37,15 +37,19 @@
         <Canvas x:Name="slideCanvas" ClipToBounds="True">
             <ItemsControl
                 x:Name="scrollItems"
-                Canvas.Top="-20"
+                Canvas.Top="-30"
                 ItemsSource="{Binding ScrollList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CirculationScroll}}, Mode=TwoWay}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock
-                            Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                            Height="20"
-                            TextAlignment="Center"
-                            Text="{Binding Text, Mode=TwoWay}" />
+                        <Border Height="30">
+                            <TextBlock
+                                Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                                Margin="2"
+                                VerticalAlignment="Center"
+                                Background="Yellow"
+                                Text="{Binding Text, Mode=TwoWay}"
+                                TextAlignment="Center" />
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
