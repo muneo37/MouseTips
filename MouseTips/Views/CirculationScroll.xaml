@@ -43,7 +43,7 @@
                     <DataTemplate>
                         <TextBlock
                                 Height="20"
-                                Text="{Binding Text, Mode=TwoWay}" />
+                                Text="{Binding Text, Mode=TwoWay}" Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
