@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <SolidColorBrush x:Key="DarkBackground" Color="#333333" />
         <SolidColorBrush x:Key="DarkForeground" Color="Gainsboro" />
-        <SolidColorBrush x:Key="DarkMouseEnter" Color="#444444"/>
+        <SolidColorBrush x:Key="DarkMouseEnter" Color="#444444" />
         <Style TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
@@ -25,11 +25,17 @@
                     <ControlTemplate TargetType="Button">
                         <Grid>
                             <Rectangle
+                                x:Name="rect"
                                 Fill="{StaticResource DarkBackground}"
                                 RadiusX="5"
                                 RadiusY="5" />
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="{StaticResource DarkMouseEnter}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>

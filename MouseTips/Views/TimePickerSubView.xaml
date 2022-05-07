@@ -18,12 +18,12 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Rectangle x:Name="rect" Fill="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Rectangle x:Name="rect" Fill="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Fill" TargetName="rect" Value="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}"/>
+                                <Setter TargetName="rect" Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -52,21 +52,17 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button
-                Grid.Column="0"
-                Click="OnOK">
+            <Button Grid.Column="0" Click="OnOK">
                 <Path
                     Data="M5,5 L10,10 L20,0"
                     Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
                     StrokeThickness="1" />
             </Button>
-            <Button
-                Grid.Column="1"
-                Click="OnCancel">
+            <Button Grid.Column="1" Click="OnCancel">
                 <Path
+                    Margin="0"
                     Data="M3,3 L17,17 M17,3 L3,17"
                     Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                    Margin="0"
                     StrokeThickness="1" />
             </Button>
         </Grid>
