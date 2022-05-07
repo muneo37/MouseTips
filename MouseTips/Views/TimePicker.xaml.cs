@@ -40,6 +40,8 @@ namespace MouseTips.Views
             subView.Background = (SolidColorBrush)this.FindResource("DarkBackground");
             subView.Foreground = (SolidColorBrush)this.FindResource("DarkForeground");
             subView.Width = this.Width;
+            subView.FontStyle = this.FontStyle;
+            subView.MouseEnterColor = (SolidColorBrush)this.FindResource("DarkMouseEnter");
 
             subView.ShowDialog();
         }

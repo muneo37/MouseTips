@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Media;
 
 namespace MouseTips.Views
 {
@@ -47,5 +48,8 @@ namespace MouseTips.Views
         {
             Close();
         }
+
+        public SolidColorBrush MouseEnterColor { get; set; }
+
     }
 }
