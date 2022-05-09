@@ -35,7 +35,7 @@ namespace MouseTips.Views
             var point = this.PointToScreen(new(0.0d, 0.0d));
 
             subView.Left = point.X;
-            subView.Top = point.Y;
+            subView.Top = point.Y - 120;
 
             subView.Background = (SolidColorBrush)this.FindResource("DarkBackground");
             subView.Foreground = (SolidColorBrush)this.FindResource("DarkForeground");

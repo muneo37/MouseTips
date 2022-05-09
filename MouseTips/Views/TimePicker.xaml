@@ -47,12 +47,16 @@
             <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
+                    <ColumnDefinition Width="1" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="1" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="hourText" Grid.Column="0" />
-                <TextBlock x:Name="minuteText" Grid.Column="1" />
-                <TextBlock x:Name="AmPmText" Grid.Column="2" />
+                <Border Grid.Column="1" Background="{StaticResource DarkMouseEnter}" />
+                <TextBlock x:Name="minuteText" Grid.Column="2" />
+                <Border Grid.Column="3" Background="{StaticResource DarkMouseEnter}" />
+                <TextBlock x:Name="AmPmText" Grid.Column="4" />
             </Grid>
         </Button>
     </Grid>

@@ -11,6 +11,7 @@
     AllowsTransparency="True"
     WindowStartupLocation="Manual"
     WindowStyle="None"
+    ShowInTaskbar="False"
     mc:Ignorable="d">
     <Window.Resources>
         <Style TargetType="Button">
@@ -35,15 +36,18 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
+            <RowDefinition Height="1"/>
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
+                <ColumnDefinition Width="1"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="1"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Canvas Grid.Column="0" Grid.ColumnSpan="3">
+            <Canvas Grid.Column="0" Grid.ColumnSpan="5">
                 <Rectangle
                     Canvas.Top="120"
                     Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
@@ -53,12 +57,16 @@
                     RadiusY="5" />
             </Canvas>
             <local:CirculationScroll x:Name="hourScroll" Grid.Column="0" />
-            <local:CirculationScroll x:Name="minuteScroll" Grid.Column="1" />
-            <local:CirculationScroll x:Name="ampmScroll" Grid.Column="2" />
+            <Border Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" Grid.Column="1"/>
+            <local:CirculationScroll x:Name="minuteScroll" Grid.Column="2" />
+            <Border Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" Grid.Column="3"/>
+            <local:CirculationScroll x:Name="ampmScroll" Grid.Column="4" />
         </Grid>
-        <Grid Grid.Row="1">
+        <Border Grid.Row="1" Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}"/>
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
+                <ColumnDefinition Width="1"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Click="OnOK">
@@ -67,7 +75,8 @@
                     Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
                     StrokeThickness="1" />
             </Button>
-            <Button Grid.Column="1" Click="OnCancel">
+            <Border Grid.Column="1" Background="{Binding RelativeSource={RelativeSource AncestorType=Window},Path=MouseEnterColor}"/>
+            <Button Grid.Column="2" Click="OnCancel">
                 <Path
                     Margin="0"
                     Data="M3,3 L17,17 M17,3 L3,17"

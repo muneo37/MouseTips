@@ -12,6 +12,7 @@
     Foreground="Gainsboro"
     WindowStyle="None"
     AllowsTransparency="True"
+    ShowInTaskbar="False"
     >
     <Grid >
         <local:TimePicker Width="200"/>

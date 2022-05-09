@@ -49,24 +49,11 @@
                             Height="30"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
-                            Content="{Binding Text, Mode=TwoWay}">
-                            <Label.Foreground>
-                                <SolidColorBrush x:Name="labelForegroundBrush" Color="{Binding Foreground.SolidColorBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
-                            </Label.Foreground>
-                        </Label>
+                            Content="{Binding Text, Mode=TwoWay}"
+                            Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
                         <DataTemplate.Triggers>
                             <Trigger Property="ItemsControl.AlternationIndex" Value="5">
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <ColorAnimation
-                                                Storyboard.TargetName="labelForegroundBrush"
-                                                Storyboard.TargetProperty="Color"
-                                                To="Black"
-                                                Duration="0:0:0.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
+                                <Setter TargetName="label" Property="Foreground" Value="black"/>
                             </Trigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
