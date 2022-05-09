@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MouseTips.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:s="clr-namespace:System;assembly=mscorlib" 
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -49,11 +49,24 @@
                             Height="30"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
-                            Content="{Binding Text, Mode=TwoWay}"
-                            Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+                            Content="{Binding Text, Mode=TwoWay}">
+                            <Label.Foreground>
+                                <SolidColorBrush x:Name="labelForegroundBrush" Color="{Binding Foreground.SolidColorBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+                            </Label.Foreground>
+                        </Label>
                         <DataTemplate.Triggers>
                             <Trigger Property="ItemsControl.AlternationIndex" Value="5">
-                                <Setter TargetName="label" Property="Foreground" Value="black"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="labelForegroundBrush"
+                                                Storyboard.TargetProperty="Color"
+                                                To="Black"
+                                                Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
                             </Trigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
