@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MouseTips.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="clr-namespace:System;assembly=mscorlib" 
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -38,15 +39,23 @@
             <ItemsControl
                 x:Name="scrollItems"
                 Canvas.Top="-30"
+                AlternationCount="{x:Static s:Int32.MaxValue}"
                 ItemsSource="{Binding ScrollList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CirculationScroll}}, Mode=TwoWay}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Label
+                            x:Name="label"
                             Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                            Height="30"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             Content="{Binding Text, Mode=TwoWay}"
                             Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+                        <DataTemplate.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="5">
+                                <Setter TargetName="label" Property="Foreground" Value="black"/>
+                            </Trigger>
+                        </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

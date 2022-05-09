@@ -15,7 +15,6 @@ namespace MouseTips.Views
             InitializeComponent();
 
             var hourList = new ObservableCollection<ScrollText>();
-
             for (int n = 0; n < 12; n++)
             {
                 var ht = (n + 1).ToString("0");
