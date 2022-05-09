@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace MouseTips.Views
 {
@@ -32,10 +33,8 @@ namespace MouseTips.Views
             }
             this.minuteScroll.ScrollList = minuteList;
 
-            var ampmList = new ObservableCollection<ScrollText>();
-            ampmList.Add(new ScrollText("AM"));
-            ampmList.Add(new ScrollText("PM"));
-            this.ampmScroll.ScrollList = ampmList;
+            this.am.Foreground = Brushes.Black;
+
         }
 
         private void OnOK(object sender, RoutedEventArgs e)
@@ -50,5 +49,22 @@ namespace MouseTips.Views
 
         public SolidColorBrush MouseEnterColor { get; set; }
 
+        private void OnCanvasMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                var slideDown = FindResource("storyboardSlideDown") as Storyboard;
+                slideDown.Begin();
+                this.am.Foreground = Brushes.Black;
+                this.pm.Foreground = this.Foreground;
+            }
+            else
+            {
+                var SlideUp = FindResource("storyboardSlideUp") as Storyboard;
+                SlideUp.Begin();
+                this.pm.Foreground = Brushes.Black;
+                this.am.Foreground = this.Foreground;
+            }
+        }
     }
 }
