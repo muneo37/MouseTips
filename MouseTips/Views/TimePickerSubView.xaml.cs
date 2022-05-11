@@ -38,16 +38,9 @@ namespace MouseTips.Views
 
         }
 
-        public delegate void CloseEventHandler(EventArgs args);
-        public CloseEventHandler CloseHandler;
 
         private void OnOK(object sender, RoutedEventArgs e)
         {
-            if (CloseHandler != null)
-            {
-                var args = new EventArgs();
-                CloseHandler(args);
-            }
             Close();
         }
 

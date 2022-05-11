@@ -21,7 +21,6 @@ namespace MouseTips.Views
     public partial class TimePicker : UserControl
     {
 
-        private TimePickerSubView _subView = new TimePickerSubView();
 
         public readonly static DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(TimeSpan), typeof(TimePicker), new FrameworkPropertyMetadata(default(TimeSpan), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
@@ -40,28 +39,25 @@ namespace MouseTips.Views
             this.minuteText.Text = "minute";
             this.AmPmText.Text = "AM";
 
-            _subView.CloseHandler = OnSubViewClose;
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
             var point = this.PointToScreen(new(0.0d, 0.0d));
 
-            _subView.Left = point.X;
-            _subView.Top = point.Y - 120;
-
+            var _subView = new TimePickerSubView();
             _subView.Background = (SolidColorBrush)this.FindResource("DarkBackground");
             _subView.Foreground = (SolidColorBrush)this.FindResource("DarkForeground");
+            _subView.MouseEnterColor = (SolidColorBrush)this.FindResource("DarkMouseEnter");
+            _subView.Left = point.X;
+            _subView.Top = point.Y - 120;
             _subView.Width = this.Width;
             _subView.FontStyle = this.FontStyle;
-            _subView.MouseEnterColor = (SolidColorBrush)this.FindResource("DarkMouseEnter");
 
             _subView.ShowDialog();
-        }
 
-        static void OnSubViewClose(EventArgs args)
-        {
-            int test = 1;
+            this.hourText.Text = _subView.hourScroll.ScrollList[5].Text;
+            this.minuteText.Text = _subView.minuteScroll.ScrollList[5].Text;
         }
     }
 }
