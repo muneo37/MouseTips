@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MouseTips.Views
 {
@@ -20,7 +10,7 @@ namespace MouseTips.Views
     /// </summary>
     public partial class TimePicker : UserControl
     {
-
+        private TimePickerSubView _subView = new TimePickerSubView();
 
         public readonly static DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(TimeSpan), typeof(TimePicker), new FrameworkPropertyMetadata(default(TimeSpan), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
@@ -41,11 +31,22 @@ namespace MouseTips.Views
 
         }
 
+
         private void OnClick(object sender, RoutedEventArgs e)
+        {
+
+            _subView.SetPreData();
+            _subView.ShowDialog();
+
+            this.hourText.Text = _subView.hourScroll.ScrollList[5].Text;
+            this.minuteText.Text = _subView.minuteScroll.ScrollList[5].Text;
+            this.AmPmText.Text = _subView.ampm;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             var point = this.PointToScreen(new(0.0d, 0.0d));
 
-            var _subView = new TimePickerSubView();
             _subView.Background = (SolidColorBrush)this.FindResource("DarkBackground");
             _subView.Foreground = (SolidColorBrush)this.FindResource("DarkForeground");
             _subView.MouseEnterColor = (SolidColorBrush)this.FindResource("DarkMouseEnter");
@@ -53,11 +54,6 @@ namespace MouseTips.Views
             _subView.Top = point.Y - 120;
             _subView.Width = this.Width;
             _subView.FontStyle = this.FontStyle;
-
-            _subView.ShowDialog();
-
-            this.hourText.Text = _subView.hourScroll.ScrollList[5].Text;
-            this.minuteText.Text = _subView.minuteScroll.ScrollList[5].Text;
         }
     }
 }

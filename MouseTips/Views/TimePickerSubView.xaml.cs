@@ -12,6 +12,12 @@ namespace MouseTips.Views
     public partial class TimePickerSubView : Window
     {
 
+        public string ampm;
+
+        private ObservableCollection<ScrollText> _preHourList = new ObservableCollection<ScrollText>();
+        private ObservableCollection<ScrollText> _preMinuteList = new ObservableCollection<ScrollText>();
+        private string _preAmpm;
+
         public TimePickerSubView()
         {
             InitializeComponent();
@@ -36,17 +42,22 @@ namespace MouseTips.Views
 
             this.am.Foreground = Brushes.Black;
 
+            SetPreData();
         }
 
 
         private void OnOK(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Visibility = Visibility.Hidden;
         }
 
         private void OnCancel(object sender, RoutedEventArgs e)
         {
-            Close();
+            hourScroll.ScrollList = _preHourList;
+            minuteScroll.ScrollList = _preMinuteList;
+            ampm = _preAmpm;
+
+            this.Visibility = Visibility.Hidden;
         }
 
         public SolidColorBrush MouseEnterColor { get; set; }
@@ -59,6 +70,7 @@ namespace MouseTips.Views
                 slideDown.Begin();
                 this.am.Foreground = Brushes.Black;
                 this.pm.Foreground = this.Foreground;
+                ampm = "AM";
             }
             else
             {
@@ -66,7 +78,15 @@ namespace MouseTips.Views
                 SlideUp.Begin();
                 this.pm.Foreground = Brushes.Black;
                 this.am.Foreground = this.Foreground;
+                ampm = "PM";
             }
+        }
+
+        public void SetPreData()
+        {
+            _preHourList = hourScroll.ScrollList;
+            _preMinuteList = minuteScroll.ScrollList;
+            _preAmpm = ampm;
         }
     }
 }

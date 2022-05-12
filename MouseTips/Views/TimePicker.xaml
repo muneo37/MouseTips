@@ -9,7 +9,7 @@
     d:DesignHeight="200"
     d:DesignWidth="400"
     FontSize="13"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Loaded="OnLoaded">
 
     <UserControl.Resources>
         <SolidColorBrush x:Key="DarkBackground" Color="#333333" />
