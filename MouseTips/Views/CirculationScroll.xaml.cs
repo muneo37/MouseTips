@@ -17,33 +17,25 @@ namespace MouseTips.Views
         {
             InitializeComponent();
 
-            ScrollList = new List<ScrollText>();
+            ScrollList = new ObservableCollection<ScrollText>();
 
         }
 
-        //public readonly static DependencyProperty ScrollListProperty = DependencyProperty.Register("ScrollList", typeof(ObservableCollection<ScrollText>), typeof(CirculationScroll), new FrameworkPropertyMetadata(default(ObservableCollection<ScrollText>), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public readonly static DependencyProperty ScrollListProperty = DependencyProperty.Register("ScrollList", typeof(ObservableCollection<ScrollText>), typeof(CirculationScroll), new FrameworkPropertyMetadata(default(ObservableCollection<ScrollText>), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        //public ObservableCollection<ScrollText> ScrollList
-        //{
-        //    get { return (ObservableCollection<ScrollText>)GetValue(ScrollListProperty); }
-        //    set { SetValue(ScrollListProperty, value); }
-        //}
-
-        public readonly static DependencyProperty ScrollListProperty = DependencyProperty.Register("ScrollList", typeof(List<ScrollText>), typeof(CirculationScroll), new FrameworkPropertyMetadata(default(List<ScrollText>), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-
-        public List<ScrollText> ScrollList
+        public ObservableCollection<ScrollText> ScrollList
         {
-            get { return (List<ScrollText>)GetValue(ScrollListProperty); }
+            get { return (ObservableCollection<ScrollText>)GetValue(ScrollListProperty); }
             set { SetValue(ScrollListProperty, value); }
         }
+
 
         private void SlideDown_Completed(object sender, EventArgs e)
         {
             var reset = FindResource("storyboardSlideReset") as Storyboard;
             reset.Begin();
 
-            ScrollList.Reverse();
-            //ScrollList.Move(ScrollList.Count - 1, 0);
+            ScrollList.Move(ScrollList.Count - 1, 0);
         }
 
         private void SlideUp_Completed(object sender, EventArgs e)
@@ -51,7 +43,7 @@ namespace MouseTips.Views
             var reset = FindResource("storyboardSlideReset") as Storyboard;
             reset.Begin();
 
-            //ScrollList.Move(0, ScrollList.Count - 1);
+            ScrollList.Move(0, ScrollList.Count - 1);
         }
 
         protected override void OnMouseWheel(MouseWheelEventArgs e)

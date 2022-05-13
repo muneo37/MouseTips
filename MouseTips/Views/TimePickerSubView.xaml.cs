@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -12,10 +13,10 @@ namespace MouseTips.Views
     public partial class TimePickerSubView : Window
     {
 
-        public string ampm;
+        public string Ampm { get; set; }
 
-        private ObservableCollection<ScrollText> _preHourList = new ObservableCollection<ScrollText>();
-        private ObservableCollection<ScrollText> _preMinuteList = new ObservableCollection<ScrollText>();
+        private string _preHour;
+        private string _preMinute;
         private string _preAmpm;
 
         public TimePickerSubView()
@@ -42,7 +43,6 @@ namespace MouseTips.Views
 
             this.am.Foreground = Brushes.Black;
 
-            SetPreData();
         }
 
 
@@ -53,11 +53,8 @@ namespace MouseTips.Views
 
         private void OnCancel(object sender, RoutedEventArgs e)
         {
-            hourScroll.ScrollList = _preHourList;
-            minuteScroll.ScrollList = _preMinuteList;
-            ampm = _preAmpm;
-
             this.Visibility = Visibility.Hidden;
+            SetPreData(_preHour, _preMinute, _preAmpm);
         }
 
         public SolidColorBrush MouseEnterColor { get; set; }
@@ -70,7 +67,7 @@ namespace MouseTips.Views
                 slideDown.Begin();
                 this.am.Foreground = Brushes.Black;
                 this.pm.Foreground = this.Foreground;
-                ampm = "AM";
+                Ampm = "AM";
             }
             else
             {
@@ -78,15 +75,38 @@ namespace MouseTips.Views
                 SlideUp.Begin();
                 this.pm.Foreground = Brushes.Black;
                 this.am.Foreground = this.Foreground;
-                ampm = "PM";
+                Ampm = "PM";
             }
         }
 
-        public void SetPreData()
+        public void SetPreData(string preHour, string preMinute, string preAmpm)
         {
-            _preHourList = hourScroll.ScrollList;
-            _preMinuteList = minuteScroll.ScrollList;
-            _preAmpm = ampm;
+            _preHour = preHour;
+            _preMinute = preMinute;
+            _preAmpm = preAmpm;
+
+            while (preHour != hourScroll.ScrollList[5].Text)
+            {
+                hourScroll.ScrollList.Move(hourScroll.ScrollList.Count - 1, 0);
+            }
+
+            while (preMinute != minuteScroll.ScrollList[5].Text)
+            {
+                minuteScroll.ScrollList.Move(minuteScroll.ScrollList.Count - 1, 0);
+            }
+
+            Ampm = preAmpm;
+            if (preAmpm == "AM")
+            {
+                Canvas.SetTop(ampmStack, 120);
+                Ampm = "AM";
+            }
+            else
+            {
+                Canvas.SetTop(ampmStack, 90);
+                Ampm = "PM";
+            }
         }
     }
+
 }

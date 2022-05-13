@@ -35,12 +35,15 @@ namespace MouseTips.Views
         private void OnClick(object sender, RoutedEventArgs e)
         {
 
-            _subView.SetPreData();
+            if (hourText.Text == "hour") hourText.Text = "1";
+            if (minuteText.Text == "minute") minuteText.Text = "00";
+
+            _subView.SetPreData(hourText.Text, minuteText.Text, AmPmText.Text);
             _subView.ShowDialog();
 
             this.hourText.Text = _subView.hourScroll.ScrollList[5].Text;
             this.minuteText.Text = _subView.minuteScroll.ScrollList[5].Text;
-            this.AmPmText.Text = _subView.ampm;
+            this.AmPmText.Text = _subView.Ampm;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

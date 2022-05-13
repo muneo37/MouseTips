@@ -80,7 +80,7 @@
             <Border Grid.Column="1" Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" />
             <local:CirculationScroll x:Name="minuteScroll" Grid.Column="2" />
             <Border Grid.Column="3" Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" />
-            <Canvas Grid.Column="4" MouseWheel="OnCanvasMouseWheel">
+            <Canvas x:Name="ampmCanvas" Grid.Column="4" MouseWheel="OnCanvasMouseWheel">
                 <StackPanel Canvas.Top="120" x:Name="ampmStack">
                     <Label Content="AM" x:Name="am"/>
                     <Label Content="PM" x:Name="pm"/>
