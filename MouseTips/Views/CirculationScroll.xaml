@@ -16,7 +16,7 @@
                 Storyboard.TargetProperty="(Canvas.Top)"
                 From="-30"
                 To="0"
-                Duration="0:0:0.2" />
+                Duration="0:0:0.1" />
         </Storyboard>
         <Storyboard x:Key="storyboardSlideUp" Completed="SlideUp_Completed">
             <DoubleAnimation
@@ -24,7 +24,7 @@
                 Storyboard.TargetProperty="(Canvas.Top)"
                 From="-30"
                 To="-60"
-                Duration="0:0:0.2" />
+                Duration="0:0:0.1" />
         </Storyboard>
         <Storyboard x:Key="storyboardSlideReset">
             <DoubleAnimation

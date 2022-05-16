@@ -41,8 +41,11 @@ namespace MouseTips.Views
             }
             this.minuteScroll.ScrollList = minuteList;
 
-            this.am.Foreground = Brushes.Black;
-
+            var ampmList = new ObservableCollection<ScrollText>();
+            ampmList.Add(new ScrollText(""));
+            ampmList.Add(new ScrollText("AM"));
+            ampmList.Add(new ScrollText("PM"));
+            this.ampmScroll.ScrollList = ampmList;
         }
 
 
@@ -58,26 +61,6 @@ namespace MouseTips.Views
         }
 
         public SolidColorBrush MouseEnterColor { get; set; }
-
-        private void OnCanvasMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
-        {
-            if (e.Delta > 0)
-            {
-                var slideDown = FindResource("storyboardSlideDown") as Storyboard;
-                slideDown.Begin();
-                this.am.Foreground = Brushes.Black;
-                this.pm.Foreground = this.Foreground;
-                Ampm = "AM";
-            }
-            else
-            {
-                var SlideUp = FindResource("storyboardSlideUp") as Storyboard;
-                SlideUp.Begin();
-                this.pm.Foreground = Brushes.Black;
-                this.am.Foreground = this.Foreground;
-                Ampm = "PM";
-            }
-        }
 
         public void SetPreData(string preHour, string preMinute, string preAmpm)
         {
@@ -95,17 +78,7 @@ namespace MouseTips.Views
                 minuteScroll.ScrollList.Move(minuteScroll.ScrollList.Count - 1, 0);
             }
 
-            Ampm = preAmpm;
-            if (preAmpm == "AM")
-            {
-                Canvas.SetTop(ampmStack, 120);
-                Ampm = "AM";
-            }
-            else
-            {
-                Canvas.SetTop(ampmStack, 90);
-                Ampm = "PM";
-            }
+
         }
     }
 

@@ -14,20 +14,6 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
-        <Storyboard x:Key="storyboardSlideDown">
-            <DoubleAnimation
-                Storyboard.TargetName="ampmStack"
-                Storyboard.TargetProperty="(Canvas.Top)"
-                To="120"
-                Duration="0:0:0.2" />
-        </Storyboard>
-        <Storyboard x:Key="storyboardSlideUp">
-            <DoubleAnimation
-                Storyboard.TargetName="ampmStack"
-                Storyboard.TargetProperty="(Canvas.Top)"
-                To="90"
-                Duration="0:0:0.2" />
-        </Storyboard>
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -80,12 +66,7 @@
             <Border Grid.Column="1" Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" />
             <local:CirculationScroll x:Name="minuteScroll" Grid.Column="2" />
             <Border Grid.Column="3" Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" />
-            <Canvas x:Name="ampmCanvas" Grid.Column="4" MouseWheel="OnCanvasMouseWheel">
-                <StackPanel Canvas.Top="120" x:Name="ampmStack">
-                    <Label Content="AM" x:Name="am"/>
-                    <Label Content="PM" x:Name="pm"/>
-                </StackPanel>
-            </Canvas>
+            <local:CirculationScroll x:Name="ampmScroll" Grid.Column="4" />
         </Grid>
         <Border Grid.Row="1" Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" />
         <Grid Grid.Row="2">

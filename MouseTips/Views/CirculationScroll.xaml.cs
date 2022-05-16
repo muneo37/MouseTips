@@ -13,6 +13,8 @@ namespace MouseTips.Views
     /// </summary>
     public partial class CirculationScroll : UserControl
     {
+        private bool OnSlide = false;
+
         public CirculationScroll()
         {
             InitializeComponent();
@@ -36,6 +38,7 @@ namespace MouseTips.Views
             reset.Begin();
 
             ScrollList.Move(ScrollList.Count - 1, 0);
+            OnSlide = false;
         }
 
         private void SlideUp_Completed(object sender, EventArgs e)
@@ -44,19 +47,30 @@ namespace MouseTips.Views
             reset.Begin();
 
             ScrollList.Move(0, ScrollList.Count - 1);
+            OnSlide = false;
         }
 
         protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
+            if (OnSlide == true) return;
+
             if (e.Delta > 0)
             {
-                var slideDown = FindResource("storyboardSlideDown") as Storyboard;
-                slideDown.Begin();
+                if (ScrollList[0].Text != "")
+                {
+                    OnSlide = true;
+                    var slideDown = FindResource("storyboardSlideDown") as Storyboard;
+                    slideDown.Begin();
+                }
             }
             else
             {
-                var SlideUp = FindResource("storyboardSlideUp") as Storyboard;
-                SlideUp.Begin();
+                if (ScrollList[ScrollList.Count - 1].Text != "")
+                {
+                    OnSlide = true;
+                    var SlideUp = FindResource("storyboardSlideUp") as Storyboard;
+                    SlideUp.Begin();
+                }
             }
 
             base.OnMouseWheel(e);
