@@ -31,6 +31,13 @@ namespace MouseTips.Views
             set { SetValue(ScrollListProperty, value); }
         }
 
+        public readonly static DependencyProperty BlackItemProperty = DependencyProperty.Register("BlackItem", typeof(int), typeof(CirculationScroll), new FrameworkPropertyMetadata(default(int), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public int BlackItem
+        {
+            get { return (int)GetValue(BlackItemProperty); }
+            set { SetValue(BlackItemProperty, value); }
+        }
 
         private void SlideDown_Completed(object sender, EventArgs e)
         {
@@ -56,7 +63,7 @@ namespace MouseTips.Views
 
             if (e.Delta > 0)
             {
-                if (ScrollList[0].Text != "")
+                if (ScrollList[0].Text != "\n")
                 {
                     OnSlide = true;
                     var slideDown = FindResource("storyboardSlideDown") as Storyboard;
@@ -65,7 +72,7 @@ namespace MouseTips.Views
             }
             else
             {
-                if (ScrollList[ScrollList.Count - 1].Text != "")
+                if (ScrollList[ScrollList.Count - 1].Text != "\n")
                 {
                     OnSlide = true;
                     var SlideUp = FindResource("storyboardSlideUp") as Storyboard;

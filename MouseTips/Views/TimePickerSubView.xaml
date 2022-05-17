@@ -66,7 +66,13 @@
             <Border Grid.Column="1" Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" />
             <local:CirculationScroll x:Name="minuteScroll" Grid.Column="2" />
             <Border Grid.Column="3" Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" />
-            <local:CirculationScroll x:Name="ampmScroll" Grid.Column="4" />
+            <Canvas Grid.Column="4">
+                <local:CirculationScroll
+                    x:Name="ampmScroll"
+                    Canvas.Top="90"
+                    Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                    Height="120" />
+            </Canvas>
         </Grid>
         <Border Grid.Row="1" Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=MouseEnterColor}" />
         <Grid Grid.Row="2">

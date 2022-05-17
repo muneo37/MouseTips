@@ -42,6 +42,7 @@ namespace MouseTips.Views
             this.minuteScroll.ScrollList = minuteList;
 
             var ampmList = new ObservableCollection<ScrollText>();
+            ampmList.Add(new ScrollText("\n"));
             ampmList.Add(new ScrollText(""));
             ampmList.Add(new ScrollText("AM"));
             ampmList.Add(new ScrollText("PM"));
