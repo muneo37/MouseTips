@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace MouseTips.Views
@@ -31,12 +33,36 @@ namespace MouseTips.Views
             set { SetValue(ScrollListProperty, value); }
         }
 
+        //Todo 依存関係である必要ない？
         public readonly static DependencyProperty BlackItemProperty = DependencyProperty.Register("BlackItem", typeof(int), typeof(CirculationScroll), new FrameworkPropertyMetadata(default(int), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public int BlackItem
         {
             get { return (int)GetValue(BlackItemProperty); }
-            set { SetValue(BlackItemProperty, value); }
+            set
+            {
+                var trigger = new Trigger();
+                trigger.Property = ItemsControl.AlternationIndexProperty;
+                trigger.Value = value;
+                trigger.Setters.Add(new Setter(Label.ForegroundProperty, new SolidColorBrush(Colors.Black), "label1"));
+
+                var label = new FrameworkElementFactory(typeof(Label));
+                label.SetValue(Label.WidthProperty, slideCanvas.ActualWidth);
+                label.SetValue(Label.HeightProperty, (double)30);
+                label.SetValue(Label.VerticalAlignmentProperty, VerticalAlignment.Center);
+                label.SetValue(Label.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+                label.SetValue(Label.ForegroundProperty, this.Foreground);
+                Binding binding = new Binding("Text");
+                label.SetBinding(Label.ContentProperty, binding);
+                label.Name = "label1";
+
+                var dataTemplate = new DataTemplate(typeof(ItemsControl));
+                dataTemplate.VisualTree = label;
+                dataTemplate.Triggers.Add(trigger);
+                scrollItems.ItemTemplate = dataTemplate;
+
+                SetValue(BlackItemProperty, value);
+            }
         }
 
         private void SlideDown_Completed(object sender, EventArgs e)

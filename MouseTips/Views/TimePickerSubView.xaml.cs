@@ -47,6 +47,7 @@ namespace MouseTips.Views
             ampmList.Add(new ScrollText("AM"));
             ampmList.Add(new ScrollText("PM"));
             this.ampmScroll.ScrollList = ampmList;
+
         }
 
 
@@ -80,6 +81,13 @@ namespace MouseTips.Views
             }
 
 
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.hourScroll.BlackItem = 5;
+            this.minuteScroll.BlackItem = 5;
+            this.ampmScroll.BlackItem = 2;
         }
     }
 

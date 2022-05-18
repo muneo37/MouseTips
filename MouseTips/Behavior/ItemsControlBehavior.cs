@@ -42,7 +42,6 @@ namespace MouseTips.Behavior
                     {
                         if (index == blackItemIndex)
                         {
-                            itemsControl.
                         }
                     }
                 };
