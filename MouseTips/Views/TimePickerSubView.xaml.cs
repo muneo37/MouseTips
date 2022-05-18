@@ -80,6 +80,10 @@ namespace MouseTips.Views
                 minuteScroll.ScrollList.Move(minuteScroll.ScrollList.Count - 1, 0);
             }
 
+            while (preAmpm != ampmScroll.ScrollList[2].Text)
+            {
+                ampmScroll.ScrollList.Move(ampmScroll.ScrollList.Count - 1, 0);
+            }
 
         }
 

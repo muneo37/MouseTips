@@ -43,7 +43,7 @@ namespace MouseTips.Views
 
             this.hourText.Text = _subView.hourScroll.ScrollList[5].Text;
             this.minuteText.Text = _subView.minuteScroll.ScrollList[5].Text;
-            this.AmPmText.Text = _subView.Ampm;
+            this.AmPmText.Text = _subView.ampmScroll.ScrollList[2].Text;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
