@@ -15,6 +15,6 @@
     ShowInTaskbar="False"
     >
     <Grid >
-        <local:TimePicker Width="200"/>
+        <local:TimePicker Width="150"/>
     </Grid>
 </Window>

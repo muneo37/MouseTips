@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,14 +16,6 @@ namespace MouseTips.Views
     {
         private bool OnSlide = false;
 
-        public CirculationScroll()
-        {
-            InitializeComponent();
-
-            ScrollList = new ObservableCollection<ScrollText>();
-
-        }
-
         public readonly static DependencyProperty ScrollListProperty = DependencyProperty.Register("ScrollList", typeof(ObservableCollection<ScrollText>), typeof(CirculationScroll), new FrameworkPropertyMetadata(default(ObservableCollection<ScrollText>), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public ObservableCollection<ScrollText> ScrollList
@@ -33,12 +24,8 @@ namespace MouseTips.Views
             set { SetValue(ScrollListProperty, value); }
         }
 
-        //Todo 依存関係である必要ない？
-        public readonly static DependencyProperty BlackItemProperty = DependencyProperty.Register("BlackItem", typeof(int), typeof(CirculationScroll), new FrameworkPropertyMetadata(default(int), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-
         public int BlackItem
         {
-            get { return (int)GetValue(BlackItemProperty); }
             set
             {
                 var trigger = new Trigger();
@@ -60,9 +47,15 @@ namespace MouseTips.Views
                 dataTemplate.VisualTree = label;
                 dataTemplate.Triggers.Add(trigger);
                 scrollItems.ItemTemplate = dataTemplate;
-
-                SetValue(BlackItemProperty, value);
             }
+        }
+
+        public CirculationScroll()
+        {
+            InitializeComponent();
+
+            ScrollList = new ObservableCollection<ScrollText>();
+
         }
 
         private void SlideDown_Completed(object sender, EventArgs e)
