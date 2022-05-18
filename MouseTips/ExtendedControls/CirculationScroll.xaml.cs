@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace MouseTips.Views
+namespace MouseTips.ExtendedControls
 {
     /// <summary>
     /// CirculationScroll.xaml の相互作用ロジック

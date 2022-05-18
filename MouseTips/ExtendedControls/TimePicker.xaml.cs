@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace MouseTips.Views
+namespace MouseTips.ExtendedControls
 {
     /// <summary>
     /// TimePicker.xaml の相互作用ロジック
