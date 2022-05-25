@@ -12,14 +12,23 @@ namespace MouseTips.ViewModels
     {
         #region フィールド
         private Queue<double> _queue = new Queue<double>();
+        private List<Screen> _screen = new List<Screen>();
         private Point _prePoint;
         private bool _onDisplay;
-        private List<Screen> _screen = new List<Screen>();
         private double _screenBottom;
         private bool _fadeIn = false;
+        private bool _drop = false;
+        private bool _fadeOut = false;
+        private string _text;
         #endregion
 
         #region プロパティ
+
+        public double ScreenBottom
+        {
+            get => this._screenBottom;
+            set => SetProperty(ref this._screenBottom, value);
+        }
 
         public bool FadeIn
         {
@@ -27,6 +36,23 @@ namespace MouseTips.ViewModels
             set { SetProperty(ref this._fadeIn, value); }
         }
 
+        public bool Drop
+        {
+            get => this._drop;
+            set => SetProperty(ref this._drop, value);
+        }
+
+        public bool FadeOut
+        {
+            get { return this._fadeOut; }
+            set { SetProperty(ref this._fadeOut, value); }
+        }
+
+        public string Text
+        {
+            get => this._text;
+            set => SetProperty(ref this._text, value);
+        }
         #endregion
 
 
@@ -86,7 +112,7 @@ namespace MouseTips.ViewModels
                 {
                     if (point.Y < s.Bounds.Y + 5)
                     {
-                        _screenBottom = s.Bounds.Height;
+                        ScreenBottom = s.Bounds.Height;
                         return true;
                     }
                 }
@@ -115,6 +141,23 @@ namespace MouseTips.ViewModels
             timer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             timer.Start();
         }
+
+        /// <summary>
+        /// FadeInアニメーション完了イベント
+        /// </summary>
+        public void FadeInCompEvent()
+        {
+            int a = 10;
+        }
+
+        /// <summary>
+        /// FadeOutアニメーション完了イベント
+        /// </summary>
+        public void FadeOutCompEvent()
+        {
+            int a = 10;
+        }
+
         #endregion
 
 
