@@ -46,6 +46,8 @@
         private void Setting_Click(object sender, EventArgs e)
         {
             var settingView = new SettingView();
+            var settingViewModel = new SettingViewModel();
+            settingView.DataContext = settingViewModel;
             settingView.Show();
 
         }

@@ -12,9 +12,9 @@
     Height="3000"
     AllowsTransparency="True"
     Background="{x:Null}"
-    Left="{Binding WindowLeft}"
+    Left="{Binding WindowLeft, Mode=TwoWay}"
     ShowInTaskbar="False"
-    Top="{Binding WindowTop}"
+    Top="{Binding WindowTop, Mode=TwoWay}"
     Topmost="True"
     WindowStyle="None"
     mc:Ignorable="d">

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace MouseTips.ViewModels
@@ -65,7 +64,7 @@ namespace MouseTips.ViewModels
         public double WindowLeft
         {
             get => this._windowLeft;
-            set => SetProperty(ref this._windowLeft, value);
+            set { SetProperty(ref this._windowLeft, value); }
         }
         #endregion
 
@@ -199,10 +198,11 @@ namespace MouseTips.ViewModels
             {
                 //座標値取得
                 Point point = GetMousePosition();
+                WindowTop = point.Y;
+                WindowLeft = point.X;
 
                 if (MouseFirst(point))
                 {//マウスが高速移動した
-
                     return;
                 }
 
@@ -211,8 +211,6 @@ namespace MouseTips.ViewModels
                     _onDisplay = true;
                     var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
                     Text = DateTime.Now.ToString("MM/dd\r\n") + dayOfWeek + DateTime.Now.ToString("\r\nHH:mm:ss");
-                    WindowTop = point.Y;
-                    WindowLeft = point.X;
                     FadeIn = true;
                 }
             }
