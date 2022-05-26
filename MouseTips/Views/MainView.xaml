@@ -12,7 +12,9 @@
     Height="3000"
     AllowsTransparency="True"
     Background="{x:Null}"
+    Left="{Binding WindowLeft}"
     ShowInTaskbar="False"
+    Top="{Binding WindowTop}"
     Topmost="True"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -30,7 +32,18 @@
                 To="1.0"
                 Duration="00:00:01" />
         </Storyboard>
-        <Storyboard x:Key="storyboardDrop" />
+        <Storyboard x:Key="storyboardDrop">
+            <DoubleAnimation
+                Storyboard.TargetName="timeText"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                From="0"
+                To="{Binding ScreenBottom}"
+                Duration="00:00:03">
+                <DoubleAnimation.EasingFunction>
+                    <BounceEase />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
         <Storyboard x:Key="storyboardFadeOut">
             <DoubleAnimation
                 Storyboard.TargetName="timeText"
@@ -48,6 +61,14 @@
         </bh:DataTrigger>
         <bh:StoryboardCompletedTrigger Storyboard="{StaticResource storyboardFadeIn}">
             <bh:CallMethodAction MethodName="FadeInCompEvent" TargetObject="{Binding}" />
+        </bh:StoryboardCompletedTrigger>
+        <bh:DataTrigger Binding="{Binding Drop}" Value="true">
+            <bh:DataTrigger.Actions>
+                <bh:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource storyboardDrop}" />
+            </bh:DataTrigger.Actions>
+        </bh:DataTrigger>
+        <bh:StoryboardCompletedTrigger Storyboard="{StaticResource storyboardDrop}">
+            <bh:CallMethodAction MethodName="DropCompEvent" TargetObject="{Binding}" />
         </bh:StoryboardCompletedTrigger>
         <bh:DataTrigger Binding="{Binding FadeOut}" Value="true">
             <bh:DataTrigger.Actions>

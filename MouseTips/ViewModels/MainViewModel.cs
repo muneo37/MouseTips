@@ -20,6 +20,8 @@ namespace MouseTips.ViewModels
         private bool _drop = false;
         private bool _fadeOut = false;
         private string _text;
+        private double _windowTop;
+        private double _windowLeft;
         #endregion
 
         #region プロパティ
@@ -52,6 +54,18 @@ namespace MouseTips.ViewModels
         {
             get => this._text;
             set => SetProperty(ref this._text, value);
+        }
+
+        public double WindowTop
+        {
+            get => this._windowTop;
+            set => SetProperty(ref this._windowTop, value);
+        }
+
+        public double WindowLeft
+        {
+            get => this._windowLeft;
+            set => SetProperty(ref this._windowLeft, value);
         }
         #endregion
 
@@ -147,7 +161,15 @@ namespace MouseTips.ViewModels
         /// </summary>
         public void FadeInCompEvent()
         {
-            int a = 10;
+            Drop = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void DropCompEvent()
+        {
+            FadeOut = true;
         }
 
         /// <summary>
@@ -155,7 +177,10 @@ namespace MouseTips.ViewModels
         /// </summary>
         public void FadeOutCompEvent()
         {
-            int a = 10;
+            _onDisplay = false;
+            FadeIn = false;
+            Drop = false;
+            FadeOut = false;
         }
 
         #endregion
@@ -183,47 +208,16 @@ namespace MouseTips.ViewModels
 
                 if (OnScreenTop(point))
                 {//画面の上にマウスが来た
+                    _onDisplay = true;
+                    var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
+                    Text = DateTime.Now.ToString("MM/dd\r\n") + dayOfWeek + DateTime.Now.ToString("\r\nHH:mm:ss");
+                    WindowTop = point.Y;
+                    WindowLeft = point.X;
                     FadeIn = true;
-                    //_onDisplay = true;
-                    //this.Top = point.Y;
-                    //this.Left = point.X;
-                    //var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
-                    //this.timeText.Text = DateTime.Now.ToString("MM/dd\r\n") + dayOfWeek + DateTime.Now.ToString("\r\nHH:mm:ss");
-                    //var fadeIn = FindResource("storyboardFadeIn") as Storyboard;
-                    //fadeIn.Begin();
                 }
             }
         }
 
-
-        /// <summary>
-        /// フェードインアニメーション完了イベント
-        /// </summary>
-        /// <param name="sender">イベントソース</param>
-        /// <param name="e">イベントデータ</param>
-        private void FadeIn_Complated(object sender, EventArgs e)
-        {
-            //var fadeOut = FindResource("storyboardFadeOut") as Storyboard;
-            //var frame = new DoubleAnimation();
-            //frame.From = 0;
-            //frame.To = _screenBottom;
-            //frame.Duration = new Duration(TimeSpan.FromSeconds(3));
-            //frame.EasingFunction = new BounceEase();
-            //Storyboard.SetTargetName(frame, "timeText");
-            //Storyboard.SetTargetProperty(frame, new PropertyPath(Canvas.TopProperty));
-            //fadeOut.Children.Add(frame);
-            //fadeOut.Begin();
-        }
-
-        /// <summary>
-        /// フェードアウトアニメーション完了イベント
-        /// </summary>
-        /// <param name="sender">イベントソース</param>
-        /// <param name="e">イベントデータ</param>
-        private void FadeOut_Complated(object sender, EventArgs e)
-        {
-            _onDisplay = false;
-        }
         #endregion
 
 
