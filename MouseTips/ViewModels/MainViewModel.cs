@@ -33,8 +33,8 @@ namespace MouseTips.ViewModels
 
         public bool FadeIn
         {
-            get { return this._fadeIn; }
-            set { SetProperty(ref this._fadeIn, value); }
+            get => this._fadeIn;
+            set => SetProperty(ref this._fadeIn, value);
         }
 
         public bool Drop
@@ -45,8 +45,8 @@ namespace MouseTips.ViewModels
 
         public bool FadeOut
         {
-            get { return this._fadeOut; }
-            set { SetProperty(ref this._fadeOut, value); }
+            get => this._fadeOut;
+            set => SetProperty(ref this._fadeOut, value);
         }
 
         public string Text
@@ -64,7 +64,7 @@ namespace MouseTips.ViewModels
         public double WindowLeft
         {
             get => this._windowLeft;
-            set { SetProperty(ref this._windowLeft, value); }
+            set => SetProperty(ref this._windowLeft, value);
         }
         #endregion
 
@@ -198,8 +198,6 @@ namespace MouseTips.ViewModels
             {
                 //座標値取得
                 Point point = GetMousePosition();
-                WindowTop = point.Y;
-                WindowLeft = point.X;
 
                 if (MouseFirst(point))
                 {//マウスが高速移動した
@@ -209,6 +207,8 @@ namespace MouseTips.ViewModels
                 if (OnScreenTop(point))
                 {//画面の上にマウスが来た
                     _onDisplay = true;
+                    WindowTop = point.Y;
+                    WindowLeft = point.X;
                     var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
                     Text = DateTime.Now.ToString("MM/dd\r\n") + dayOfWeek + DateTime.Now.ToString("\r\nHH:mm:ss");
                     FadeIn = true;
