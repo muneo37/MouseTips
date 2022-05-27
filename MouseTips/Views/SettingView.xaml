@@ -2,20 +2,44 @@
     x:Class="MouseTips.Views.SettingView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:c="clr-namespace:MouseTips.ExtendedControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MouseTips.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:MouseTips.ViewModels"
+    x:Name="root"
     Width="400"
     Height="300"
+    d:DataContext="{d:DesignInstance Type=vm:SettingViewModel}"
     AllowsTransparency="True"
     Background="DimGray"
     Foreground="Black"
     Left="{Binding WindowLeft, Mode=TwoWay}"
     ShowInTaskbar="False"
-    Top="{Binding WindowTop, Mode=TwoWay}"
+    Top="{Binding WindowBottom, Mode=TwoWay}"
     WindowStyle="None"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Storyboard x:Key="storyboardShowSlide">
+            <DoubleAnimation
+                Storyboard.TargetName="root"
+                Storyboard.TargetProperty="Top"
+                From="{Binding WindowBottom}"
+                To="{Binding ViewTop}"
+                Duration="00:00:5" />
+        </Storyboard>
+    </Window.Resources>
+    <bh:Interaction.Triggers>
+        <bh:DataTrigger Binding="{Binding SlideUp}" Value="true">
+            <bh:DataTrigger.Actions>
+                <bh:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource storyboardShowSlide}" />
+            </bh:DataTrigger.Actions>
+        </bh:DataTrigger>
+        <bh:EventTrigger EventName="Loaded">
+            <bh:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </bh:EventTrigger>
+    </bh:Interaction.Triggers>
     <Grid>
         <c:TimePicker Width="150" />
     </Grid>

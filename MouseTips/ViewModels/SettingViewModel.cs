@@ -12,23 +12,50 @@ namespace MouseTips.ViewModels
 
         #region フィールド
         private List<Screen> _screen = new List<Screen>();
-        private double _windowTop;
+        private double _windowBottom;
+        private double _viewTop;
         private double _windowLeft;
+        private bool _slideUp;
         #endregion
 
         #region プロパティ
 
-        public double WindowTop
+        public double WindowBottom
         {
-            get => this._windowTop;
-            set => SetProperty(ref this._windowTop, value);
+            get => this._windowBottom;
+            set => SetProperty(ref this._windowBottom, value);
+        }
+        public double ViewTop
+        {
+            get => this._viewTop;
+            set => SetProperty(ref this._viewTop, value);
         }
         public double WindowLeft
         {
             get => this._windowLeft;
             set => SetProperty(ref this._windowLeft, value);
         }
+        public bool SlideUp
+        {
+            get => this._slideUp;
+            set => SetProperty(ref this._slideUp, value);
+        }
+        #endregion
 
+        #region コマンド
+        private DelegateCommand _loadedCommand;
+
+        public DelegateCommand LoadedCommand
+        {
+            get
+            {
+                return this._loadedCommand ?? (this._loadedCommand = new DelegateCommand(
+                    p =>
+                    {
+                        SlideUp = true;
+                    }));
+            }
+        }
         #endregion
 
         #region メソッド
@@ -42,8 +69,9 @@ namespace MouseTips.ViewModels
                 _screen.Add(s);
             }
 
-            WindowTop = _screen[0].Bounds.Height - 350;
+            WindowBottom = _screen[0].Bounds.Height;
             WindowLeft = _screen[0].Bounds.Width - 450;
+            ViewTop = WindowBottom - 350;
         }
         #endregion
     }
