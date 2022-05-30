@@ -16,6 +16,7 @@ namespace MouseTips.ViewModels
         private double _viewTop;
         private double _windowLeft;
         private bool _slideUp;
+        private double _preWindowBottom;
         #endregion
 
         #region プロパティ
@@ -43,13 +44,13 @@ namespace MouseTips.ViewModels
         #endregion
 
         #region コマンド
-        private DelegateCommand _loadedCommand;
+        private DelegateCommand _visibleChangedCommand;
 
-        public DelegateCommand LoadedCommand
+        public DelegateCommand VisibleChangedCommand
         {
             get
             {
-                return this._loadedCommand ?? (this._loadedCommand = new DelegateCommand(
+                return this._visibleChangedCommand ?? (this._visibleChangedCommand = new DelegateCommand(
                     p =>
                     {
                         SlideUp = true;
@@ -69,9 +70,18 @@ namespace MouseTips.ViewModels
                 _screen.Add(s);
             }
 
-            WindowBottom = _screen[0].Bounds.Height;
+            _preWindowBottom = WindowBottom = _screen[0].Bounds.Height;
             WindowLeft = _screen[0].Bounds.Width - 450;
             ViewTop = WindowBottom - 350;
+        }
+
+        /// <summary>
+        /// スライド表示完了
+        /// </summary>
+        public void ShowSlideCompEvent()
+        {
+            SlideUp = false;
+            WindowBottom = _preWindowBottom;
         }
         #endregion
     }

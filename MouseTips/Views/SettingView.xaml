@@ -25,9 +25,14 @@
             <DoubleAnimation
                 Storyboard.TargetName="root"
                 Storyboard.TargetProperty="Top"
+                To="{Binding WindowBottom}"
+                Duration="00:00:00" />
+            <DoubleAnimation
+                Storyboard.TargetName="root"
+                Storyboard.TargetProperty="Top"
                 From="{Binding WindowBottom}"
                 To="{Binding ViewTop}"
-                Duration="00:00:5" />
+                Duration="00:00:0.2" />
         </Storyboard>
     </Window.Resources>
     <bh:Interaction.Triggers>
@@ -36,9 +41,12 @@
                 <bh:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource storyboardShowSlide}" />
             </bh:DataTrigger.Actions>
         </bh:DataTrigger>
-        <bh:EventTrigger EventName="Loaded">
-            <bh:InvokeCommandAction Command="{Binding LoadedCommand}"/>
-        </bh:EventTrigger>
+        <bh:StoryboardCompletedTrigger Storyboard="{StaticResource storyboardShowSlide}">
+            <bh:CallMethodAction MethodName="ShowSlideCompEvent" TargetObject="{Binding}" />
+        </bh:StoryboardCompletedTrigger>
+        <bh:PropertyChangedTrigger Binding="{Binding Visibility, ElementName=root}">
+            <bh:InvokeCommandAction Command="{Binding VisibleChangedCommand}" />
+        </bh:PropertyChangedTrigger>
     </bh:Interaction.Triggers>
     <Grid>
         <c:TimePicker Width="150" />
