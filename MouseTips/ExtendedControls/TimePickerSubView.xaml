@@ -12,6 +12,7 @@
     ShowInTaskbar="False"
     WindowStartupLocation="Manual"
     WindowStyle="None"
+    Topmost="True"
     mc:Ignorable="d" Loaded="OnLoaded">
     <Window.Resources>
         <Style TargetType="Button">

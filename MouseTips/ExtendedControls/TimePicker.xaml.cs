@@ -38,6 +38,9 @@ namespace MouseTips.ExtendedControls
             if (hourText.Text == "hour") hourText.Text = "1";
             if (minuteText.Text == "minute") minuteText.Text = "00";
 
+            var point = this.PointToScreen(new(0.0d, 0.0d));
+            _subView.Left = point.X;
+            _subView.Top = point.Y - 120;
             _subView.SetPreData(hourText.Text, minuteText.Text, AmPmText.Text);
             _subView.ShowDialog();
 
@@ -48,13 +51,10 @@ namespace MouseTips.ExtendedControls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var point = this.PointToScreen(new(0.0d, 0.0d));
 
             _subView.Background = (SolidColorBrush)this.FindResource("DarkBackground");
             _subView.Foreground = (SolidColorBrush)this.FindResource("DarkForeground");
             _subView.MouseEnterColor = (SolidColorBrush)this.FindResource("DarkMouseEnter");
-            _subView.Left = point.X;
-            _subView.Top = point.Y - 120;
             _subView.Width = this.Width;
             _subView.FontStyle = this.FontStyle;
         }
