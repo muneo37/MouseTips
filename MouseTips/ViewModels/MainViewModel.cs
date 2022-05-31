@@ -21,6 +21,7 @@ namespace MouseTips.ViewModels
         private string _text;
         private double _windowTop;
         private double _windowLeft;
+
         #endregion
 
         #region プロパティ
@@ -66,6 +67,7 @@ namespace MouseTips.ViewModels
             get => this._windowLeft;
             set => SetProperty(ref this._windowLeft, value);
         }
+
         #endregion
 
 

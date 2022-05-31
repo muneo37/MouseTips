@@ -13,14 +13,39 @@
     Height="300"
     d:DataContext="{d:DesignInstance Type=vm:SettingViewModel}"
     AllowsTransparency="True"
-    Background="DimGray"
-    Foreground="Black"
     Left="{Binding WindowLeft, Mode=TwoWay}"
     ShowInTaskbar="False"
     Top="{Binding WindowBottom, Mode=TwoWay}"
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
+        <SolidColorBrush x:Key="DarkBackground" Color="#222222" />
+        <SolidColorBrush x:Key="DarkForeground" Color="Gainsboro" />
+        <SolidColorBrush x:Key="ContentBackground" Color="#333333" />
+        <SolidColorBrush x:Key="DarkMouseEnter" Color="#444444" />
+        <SolidColorBrush x:Key="AccentColor1" Color="CornflowerBlue" />
+        <Style x:Key="menuButtonstyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse
+                                x:Name="ellipse"
+                                Width="20"
+                                Height="20"
+                                Fill="{StaticResource DarkBackground}" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource AccentColor1}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Storyboard x:Key="storyboardShowSlide">
             <DoubleAnimation
                 Storyboard.TargetName="root"
@@ -35,6 +60,13 @@
                 Duration="00:00:0.2" />
         </Storyboard>
     </Window.Resources>
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Background" Value="{StaticResource DarkBackground}" />
+            <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
+        </Style>
+    </Window.Style>
+
     <bh:Interaction.Triggers>
         <bh:DataTrigger Binding="{Binding SlideUp}" Value="true">
             <bh:DataTrigger.Actions>
@@ -49,6 +81,49 @@
         </bh:PropertyChangedTrigger>
     </bh:Interaction.Triggers>
     <Grid>
-        <c:TimePicker Width="150" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="{Binding IconImage}" />
+            <TextBlock
+                Grid.Column="1"
+                Foreground="{StaticResource AccentColor1}"
+                Text="MouseTips" />
+            <Button Grid.Column="2" Style="{StaticResource menuButtonstyle}">
+                <Canvas>
+                    <Ellipse
+                        Canvas.Left="-7"
+                        Canvas.Top="-1"
+                        Width="2"
+                        Height="2"
+                        Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
+                    <Ellipse
+                        Canvas.Left="-1"
+                        Canvas.Top="-1"
+                        Width="2"
+                        Height="2"
+                        Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
+                    <Ellipse
+                        Canvas.Left="5"
+                        Canvas.Top="-1"
+                        Width="2"
+                        Height="2"
+                        Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
+                </Canvas>
+            </Button>
+        </Grid>
+        <TextBox
+            Grid.Row="1"
+            Margin="3"
+            Background="{StaticResource ContentBackground}"
+            Foreground="{StaticResource DarkForeground}" />
     </Grid>
 </Window>

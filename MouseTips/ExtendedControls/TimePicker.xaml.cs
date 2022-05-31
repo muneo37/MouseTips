@@ -52,9 +52,9 @@ namespace MouseTips.ExtendedControls
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            _subView.Background = (SolidColorBrush)this.FindResource("DarkBackground");
-            _subView.Foreground = (SolidColorBrush)this.FindResource("DarkForeground");
-            _subView.MouseEnterColor = (SolidColorBrush)this.FindResource("DarkMouseEnter");
+            _subView.Background = (SolidColorBrush)this.FindResource("TimeDarkBackground");
+            _subView.Foreground = (SolidColorBrush)this.FindResource("TimeDarkForeground");
+            _subView.MouseEnterColor = (SolidColorBrush)this.FindResource("TimeDarkMouseEnter");
             _subView.Width = this.Width;
             _subView.FontStyle = this.FontStyle;
         }

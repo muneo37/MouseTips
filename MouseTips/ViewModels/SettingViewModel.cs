@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace MouseTips.ViewModels
 {
@@ -17,6 +16,7 @@ namespace MouseTips.ViewModels
         private double _windowLeft;
         private bool _slideUp;
         private double _preWindowBottom;
+        private BitmapSource _iconImage;
         #endregion
 
         #region プロパティ
@@ -41,6 +41,13 @@ namespace MouseTips.ViewModels
             get => this._slideUp;
             set => SetProperty(ref this._slideUp, value);
         }
+
+        public BitmapSource IconImage
+        {
+            get => this._iconImage;
+            set => SetProperty(ref this._iconImage, value);
+        }
+
         #endregion
 
         #region コマンド
@@ -65,6 +72,14 @@ namespace MouseTips.ViewModels
         /// </summary>
         public SettingViewModel()
         {
+            //exeアイコンを表示
+            string dir = Directory.GetCurrentDirectory();
+            string exe = dir + "\\MouseTips.exe";
+
+            var path = @exe;
+            var icon = System.Drawing.Icon.ExtractAssociatedIcon(path);
+            IconImage = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, System.Windows.Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
             foreach (Screen s in Screen.AllScreens)
             {
                 _screen.Add(s);
