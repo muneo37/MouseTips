@@ -95,7 +95,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
         <Style x:Key="CardButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
             <Setter Property="Template">
@@ -160,7 +159,6 @@
             <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
         </Style>
     </Window.Style>
-
     <bh:Interaction.Triggers>
         <bh:DataTrigger Binding="{Binding SlideUp}" Value="true">
             <bh:DataTrigger.Actions>
@@ -199,26 +197,30 @@
             Background="{StaticResource ContentBackground}"
             BorderThickness="0"
             Foreground="{StaticResource DarkForeground}" />
-        <Button
-            Grid.Row="2"
-            Height="40"
-            Style="{StaticResource CardButtonStyle}">
-            <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                <Grid Margin="10,0,10,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="30" />
-                        <ColumnDefinition Width="30" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Text="test" />
-                    <Button Grid.Column="1" Style="{StaticResource MenuButtonStyle}" />
-                    <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" />
-
-                </Grid>
-            </Grid>
-        </Button>
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding TipsItems}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button
+                        Height="40"
+                        Style="{StaticResource CardButtonStyle}">
+                        <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                            <Grid Margin="10,0,10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="30" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Text}" />
+                                <Button Grid.Column="1" Style="{StaticResource MenuButtonStyle}" />
+                                <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>

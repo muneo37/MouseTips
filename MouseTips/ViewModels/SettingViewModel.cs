@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Interop;
@@ -17,9 +18,16 @@ namespace MouseTips.ViewModels
         private bool _slideUp;
         private double _preWindowBottom;
         private BitmapSource _iconImage;
+        private ObservableCollection<Tips> _TipsItems = new ObservableCollection<Tips>();
         #endregion
 
         #region プロパティ
+
+        public ObservableCollection<Tips> TipsItems
+        {
+            get => this._TipsItems;
+            set => SetProperty(ref this._TipsItems, value);
+        }
 
         public double WindowBottom
         {
@@ -88,6 +96,15 @@ namespace MouseTips.ViewModels
             _preWindowBottom = WindowBottom = _screen[0].Bounds.Height;
             WindowLeft = _screen[0].Bounds.Width - 450;
             ViewTop = WindowBottom - 350;
+
+            //Todo
+            TipsItems.Add(new Tips("最初"));
+            TipsItems.Add(new Tips("2番目"));
+            TipsItems.Add(new Tips("晴れ"));
+            TipsItems.Add(new Tips("テスト用のコメント"));
+            TipsItems.Add(new Tips("テストです。"));
+
+
         }
 
         /// <summary>
@@ -99,5 +116,14 @@ namespace MouseTips.ViewModels
             WindowBottom = _preWindowBottom;
         }
         #endregion
+    }
+
+    public class Tips
+    {
+        public Tips(string text)
+        {
+            Text = text;
+        }
+        public string Text { get; set; }
     }
 }
