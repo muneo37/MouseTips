@@ -23,8 +23,9 @@
         <SolidColorBrush x:Key="DarkForeground" Color="Gainsboro" />
         <SolidColorBrush x:Key="ContentBackground" Color="#333333" />
         <SolidColorBrush x:Key="DarkMouseEnter" Color="#444444" />
+        <SolidColorBrush x:Key="ContentColor1" Color="#555555"/>
         <SolidColorBrush x:Key="AccentColor1" Color="CornflowerBlue" />
-        <Style x:Key="menuButtonstyle" TargetType="Button">
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -40,6 +41,40 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Foreground" Value="{StaticResource AccentColor1}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CardButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Canvas>
+                            <Grid Canvas.Top="2" Canvas.Left="2" Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}">
+                                <Rectangle
+                                x:Name="UnderRect"
+                                Margin="10"
+                                Fill="{StaticResource ContentColor1}"
+                                RadiusX="5"
+                                RadiusY="5" />
+                            </Grid>
+                            <Grid x:Name="OverGrid" Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}">
+                                <Rectangle
+                                    x:Name="OverRect"
+                                    Margin="10"
+                                    Fill="{StaticResource ContentBackground}"
+                                    RadiusX="5"
+                                    RadiusY="5" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </Canvas>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseDirectlyOver" Value="True">
+                                <Setter TargetName="OverGrid" Property="Canvas.Top" Value="2"/>
+                                <Setter TargetName="OverGrid" Property="Canvas.Left" Value="2"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -97,7 +132,7 @@
                 Grid.Column="1"
                 Foreground="{StaticResource AccentColor1}"
                 Text="MouseTips" />
-            <Button Grid.Column="2" Style="{StaticResource menuButtonstyle}">
+            <Button Grid.Column="2" Style="{StaticResource MenuButtonStyle}">
                 <Canvas>
                     <Ellipse
                         Canvas.Left="-7"
@@ -124,6 +159,12 @@
             Grid.Row="1"
             Margin="3"
             Background="{StaticResource ContentBackground}"
+            BorderThickness="0"
             Foreground="{StaticResource DarkForeground}" />
+        <Button
+            Grid.Row="2"
+            Content="test"
+            Style="{StaticResource CardButtonStyle}" 
+            Height="100"/>
     </Grid>
 </Window>
