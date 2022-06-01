@@ -23,19 +23,39 @@
         <SolidColorBrush x:Key="DarkForeground" Color="Gainsboro" />
         <SolidColorBrush x:Key="ContentBackground" Color="#333333" />
         <SolidColorBrush x:Key="DarkMouseEnter" Color="#444444" />
-        <SolidColorBrush x:Key="ContentColor1" Color="#555555"/>
+        <SolidColorBrush x:Key="ContentColor1" Color="#555555" />
         <SolidColorBrush x:Key="AccentColor1" Color="CornflowerBlue" />
         <Style x:Key="MenuButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Ellipse
-                                x:Name="ellipse"
+                            <Canvas
                                 Width="20"
                                 Height="20"
-                                Fill="{StaticResource DarkBackground}" />
+                                Background="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                                <Ellipse
+                                    Canvas.Left="2"
+                                    Canvas.Top="9"
+                                    Width="2"
+                                    Height="2"
+                                    Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
+                                <Ellipse
+                                    Canvas.Left="9"
+                                    Canvas.Top="9"
+                                    Width="2"
+                                    Height="2"
+                                    Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
+                                <Ellipse
+                                    Canvas.Left="16"
+                                    Canvas.Top="9"
+                                    Width="2"
+                                    Height="2"
+                                    Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
+                            </Canvas>
+
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -47,34 +67,73 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="CloseButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Canvas
+                                Width="20"
+                                Height="20"
+                                Background="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                                <Path
+                                    Margin="0"
+                                    Data="M3,3 L17,17 M17,3 L3,17"
+                                    Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
+                                    StrokeThickness="1" />
+                            </Canvas>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource AccentColor1}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="CardButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Canvas>
-                            <Grid Canvas.Top="2" Canvas.Left="2" Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}">
+                            <Grid
+                                Canvas.Left="2"
+                                Canvas.Top="2"
+                                Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}">
                                 <Rectangle
-                                x:Name="UnderRect"
-                                Margin="10"
-                                Fill="{StaticResource ContentColor1}"
-                                RadiusX="5"
-                                RadiusY="5" />
+                                    x:Name="UnderRect"
+                                    Margin="3"
+                                    Fill="{StaticResource ContentColor1}"
+                                    RadiusX="5"
+                                    RadiusY="5" />
                             </Grid>
-                            <Grid x:Name="OverGrid" Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}" Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}">
+                            <Grid
+                                x:Name="OverGrid"
+                                Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}">
                                 <Rectangle
                                     x:Name="OverRect"
-                                    Margin="10"
+                                    Margin="3"
                                     Fill="{StaticResource ContentBackground}"
                                     RadiusX="5"
                                     RadiusY="5" />
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <ContentPresenter
+                                    Margin="3,0,3,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
                             </Grid>
                         </Canvas>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseDirectlyOver" Value="True">
-                                <Setter TargetName="OverGrid" Property="Canvas.Top" Value="2"/>
-                                <Setter TargetName="OverGrid" Property="Canvas.Left" Value="2"/>
+                                <Setter TargetName="OverGrid" Property="Canvas.Top" Value="2" />
+                                <Setter TargetName="OverGrid" Property="Canvas.Left" Value="2" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -132,28 +191,7 @@
                 Grid.Column="1"
                 Foreground="{StaticResource AccentColor1}"
                 Text="MouseTips" />
-            <Button Grid.Column="2" Style="{StaticResource MenuButtonStyle}">
-                <Canvas>
-                    <Ellipse
-                        Canvas.Left="-7"
-                        Canvas.Top="-1"
-                        Width="2"
-                        Height="2"
-                        Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
-                    <Ellipse
-                        Canvas.Left="-1"
-                        Canvas.Top="-1"
-                        Width="2"
-                        Height="2"
-                        Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
-                    <Ellipse
-                        Canvas.Left="5"
-                        Canvas.Top="-1"
-                        Width="2"
-                        Height="2"
-                        Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
-                </Canvas>
-            </Button>
+            <Button Grid.Column="2" Style="{StaticResource MenuButtonStyle}" />
         </Grid>
         <TextBox
             Grid.Row="1"
@@ -163,8 +201,24 @@
             Foreground="{StaticResource DarkForeground}" />
         <Button
             Grid.Row="2"
-            Content="test"
-            Style="{StaticResource CardButtonStyle}" 
-            Height="100"/>
+            Height="40"
+            Style="{StaticResource CardButtonStyle}">
+            <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                <Grid Margin="10,0,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Text="test" />
+                    <Button Grid.Column="1" Style="{StaticResource MenuButtonStyle}" />
+                    <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" />
+
+                </Grid>
+            </Grid>
+        </Button>
     </Grid>
 </Window>
