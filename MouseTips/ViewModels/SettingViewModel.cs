@@ -72,6 +72,20 @@ namespace MouseTips.ViewModels
                     }));
             }
         }
+
+        private DelegateCommand _mouseUpCommand;
+
+        public DelegateCommand MouseUpCommand
+        {
+            get
+            {
+                return this._mouseUpCommand ?? (this._mouseUpCommand = new DelegateCommand(
+                    p =>
+                    {
+                        Tips t = p as Tips;
+                    }));
+            }
+        }
         #endregion
 
         #region メソッド
@@ -103,8 +117,6 @@ namespace MouseTips.ViewModels
             TipsItems.Add(new Tips("晴れ"));
             TipsItems.Add(new Tips("テスト用のコメント"));
             TipsItems.Add(new Tips("テストです。"));
-
-
         }
 
         /// <summary>

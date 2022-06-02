@@ -200,7 +200,12 @@
         <ItemsControl Grid.Row="2" ItemsSource="{Binding TipsItems}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Height="40" Style="{StaticResource CardButtonStyle}">
+                    <Button
+                        x:Name="TipsButton"
+                        Height="40"
+                        Command="{Binding DataContext.MouseUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        CommandParameter="{Binding .}"
+                        Style="{StaticResource CardButtonStyle}">
                         <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                             <Grid Margin="10,0,10,0">
                                 <Grid.ColumnDefinitions>
