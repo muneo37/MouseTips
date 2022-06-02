@@ -83,6 +83,7 @@ namespace MouseTips.ViewModels
                     p =>
                     {
                         Tips t = p as Tips;
+                        TipsItems[0].Archive = true;
                     }));
             }
         }
@@ -130,12 +131,19 @@ namespace MouseTips.ViewModels
         #endregion
     }
 
-    public class Tips
+    class Tips : NotificationObject
     {
         public Tips(string text)
         {
             Text = text;
         }
         public string Text { get; set; }
+
+        private bool _archive;
+        public bool Archive
+        {
+            get => this._archive;
+            set => SetProperty(ref this._archive, value);
+        }
     }
 }

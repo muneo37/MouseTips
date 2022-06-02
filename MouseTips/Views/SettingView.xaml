@@ -200,28 +200,54 @@
         <ItemsControl Grid.Row="2" ItemsSource="{Binding TipsItems}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button
-                        x:Name="TipsButton"
-                        Height="40"
-                        Command="{Binding DataContext.MouseUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                        CommandParameter="{Binding .}"
-                        Style="{StaticResource CardButtonStyle}">
-                        <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                            <Grid Margin="10,0,10,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="30" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Grid.Column="0"
-                                    VerticalAlignment="Center"
-                                    Text="{Binding Text}" />
-                                <Button Grid.Column="1" Style="{StaticResource MenuButtonStyle}" />
-                                <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" />
+                    <Canvas x:Name="TipsCanvas" Width="390" Height="40">
+                        <Button
+                            x:Name="TipsButton"
+                            Canvas.Top="0"
+                            Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                            Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                            Command="{Binding DataContext.MouseUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                            CommandParameter="{Binding .}"
+                            Style="{StaticResource CardButtonStyle}">
+                            <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}">
+                                <Grid Margin="10,0,10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="30" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Text}" />
+                                    <Button Grid.Column="1" Style="{StaticResource MenuButtonStyle}" />
+                                    <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Button>
+                        </Button>
+                    </Canvas>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Archive}" Value="true">
+                            <!--<Setter TargetName="TipsButton" Property="Height" Value="100"/>-->
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TipsButton"
+                                            Storyboard.TargetProperty="(Canvas.Left)"
+                                            From="0"
+                                            To="400"
+                                            Duration="00:00:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                    <!--<bh:Interaction.Triggers>
+                            <bh:DataTrigger Binding="{Binding Archive}" Value="true">
+                                <bh:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource storyboardShowSlide}" />
+                            </bh:DataTrigger>
+                        </bh:Interaction.Triggers>-->
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
