@@ -60,7 +60,6 @@ namespace MouseTips.ViewModels
 
         #region コマンド
         private DelegateCommand _visibleChangedCommand;
-
         public DelegateCommand VisibleChangedCommand
         {
             get
@@ -74,7 +73,6 @@ namespace MouseTips.ViewModels
         }
 
         private DelegateCommand _mouseUpCommand;
-
         public DelegateCommand MouseUpCommand
         {
             get
@@ -83,17 +81,23 @@ namespace MouseTips.ViewModels
                     p =>
                     {
                         Tips t = p as Tips;
+                        bool underArchive = false;
                         foreach (Tips tips in TipsItems)
                         {
                             if (tips.Text == t.Text)
                             {
                                 tips.Archive = true;
-                                break;
+                                underArchive = true;
+                            }
+                            if (underArchive)
+                            {
+                                tips.SlideUp = true;
                             }
                         }
                     }));
             }
         }
+
         #endregion
 
         #region メソッド
@@ -135,22 +139,35 @@ namespace MouseTips.ViewModels
             SlideUp = false;
             WindowBottom = _preWindowBottom;
         }
+
+        public void SlideLeftCompEvent()
+        {
+            int a = 10;
+        }
         #endregion
     }
 
     class Tips : NotificationObject
     {
-        public Tips(string text)
-        {
-            Text = text;
-        }
-        public string Text { get; set; }
-
         private bool _archive;
+        private bool _slideUp;
+
+        public string Text { get; set; }
         public bool Archive
         {
             get => this._archive;
             set => SetProperty(ref this._archive, value);
         }
+        public bool SlideUp
+        {
+            get => this._slideUp;
+            set => SetProperty(ref this._slideUp, value);
+        }
+
+        public Tips(string text)
+        {
+            Text = text;
+        }
+
     }
 }

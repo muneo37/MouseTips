@@ -139,7 +139,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Storyboard x:Key="storyboardShowSlide">
+        <Storyboard x:Key="StoryboardShowSlide">
             <DoubleAnimation
                 Storyboard.TargetName="root"
                 Storyboard.TargetProperty="Top"
@@ -152,6 +152,23 @@
                 To="{Binding ViewTop}"
                 Duration="00:00:0.2" />
         </Storyboard>
+        <Storyboard x:Key="StoryboardSlideLeft">
+            <DoubleAnimation
+                Storyboard.TargetName="TipsButton"
+                Storyboard.TargetProperty="(Canvas.Left)"
+                From="0"
+                To="400"
+                Duration="00:00:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="StoryboardSlideUp">
+            <DoubleAnimation
+                Storyboard.TargetName="TipsButton"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                From="0"
+                To="-40"
+                Duration="00:00:0.3" />
+        </Storyboard>
+
     </Window.Resources>
     <Window.Style>
         <Style TargetType="{x:Type Window}">
@@ -162,11 +179,14 @@
     <bh:Interaction.Triggers>
         <bh:DataTrigger Binding="{Binding SlideUp}" Value="true">
             <bh:DataTrigger.Actions>
-                <bh:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource storyboardShowSlide}" />
+                <bh:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource StoryboardShowSlide}" />
             </bh:DataTrigger.Actions>
         </bh:DataTrigger>
-        <bh:StoryboardCompletedTrigger Storyboard="{StaticResource storyboardShowSlide}">
+        <bh:StoryboardCompletedTrigger Storyboard="{StaticResource StoryboardShowSlide}">
             <bh:CallMethodAction MethodName="ShowSlideCompEvent" TargetObject="{Binding}" />
+        </bh:StoryboardCompletedTrigger>
+        <bh:StoryboardCompletedTrigger Storyboard="{StaticResource StoryboardSlideLeft}">
+            <bh:CallMethodAction MethodName="SlideLeftCompEvent" TargetObject="{Binding}" />
         </bh:StoryboardCompletedTrigger>
         <bh:PropertyChangedTrigger Binding="{Binding Visibility, ElementName=root}">
             <bh:InvokeCommandAction Command="{Binding VisibleChangedCommand}" />
@@ -200,7 +220,10 @@
         <ItemsControl Grid.Row="2" ItemsSource="{Binding TipsItems}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Canvas x:Name="TipsCanvas" Width="390" Height="40">
+                    <Canvas
+                        x:Name="TipsCanvas"
+                        Width="390"
+                        Height="40">
                         <Button
                             x:Name="TipsButton"
                             Canvas.Top="0"
@@ -229,16 +252,12 @@
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Archive}" Value="true">
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="TipsButton"
-                                            Storyboard.TargetProperty="(Canvas.Left)"
-                                            From="0"
-                                            To="400"
-                                            Duration="00:00:0.3" />
-                                    </Storyboard>
-                                </BeginStoryboard>
+                                <BeginStoryboard Storyboard="{StaticResource StoryboardSlideLeft}" />
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SlideUp}" Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource StoryboardSlideUp}"/>
                             </DataTrigger.EnterActions>
                         </DataTrigger>
                     </DataTemplate.Triggers>
