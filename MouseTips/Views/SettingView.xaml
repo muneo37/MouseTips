@@ -228,7 +228,6 @@
                     </Canvas>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Archive}" Value="true">
-                            <!--<Setter TargetName="TipsButton" Property="Height" Value="100"/>-->
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -243,11 +242,6 @@
                             </DataTrigger.EnterActions>
                         </DataTrigger>
                     </DataTemplate.Triggers>
-                    <!--<bh:Interaction.Triggers>
-                            <bh:DataTrigger Binding="{Binding Archive}" Value="true">
-                                <bh:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource storyboardShowSlide}" />
-                            </bh:DataTrigger>
-                        </bh:Interaction.Triggers>-->
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

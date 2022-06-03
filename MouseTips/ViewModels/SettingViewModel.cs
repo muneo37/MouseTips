@@ -83,7 +83,14 @@ namespace MouseTips.ViewModels
                     p =>
                     {
                         Tips t = p as Tips;
-                        TipsItems[0].Archive = true;
+                        foreach (Tips tips in TipsItems)
+                        {
+                            if (tips.Text == t.Text)
+                            {
+                                tips.Archive = true;
+                                break;
+                            }
+                        }
                     }));
             }
         }
