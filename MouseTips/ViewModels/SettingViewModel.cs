@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using System.Linq;
+using System.Windows;
 
 namespace MouseTips.ViewModels
 {
@@ -153,7 +154,6 @@ namespace MouseTips.ViewModels
 
         public void SlideLeftCompEvent()
         {
-
             for (int index = this._archiveIndex + 1; index < TipsItems.Count; index++)
             {
                 TipsItems[index].SlideUp = true;
@@ -164,6 +164,11 @@ namespace MouseTips.ViewModels
                 tips.SlideUp = false;
             }
         }
+
+        public void SlideUpCompEvent()
+        {
+            TipsItems[this._archiveIndex].IsVisible = Visibility.Collapsed;
+        }
         #endregion
     }
 
@@ -171,6 +176,7 @@ namespace MouseTips.ViewModels
     {
         private bool _archive;
         private bool _slideUp;
+        private Visibility _isVisible = Visibility.Visible;
 
         public string Text { get; set; }
         public bool Archive
@@ -183,6 +189,12 @@ namespace MouseTips.ViewModels
             get => this._slideUp;
             set => SetProperty(ref this._slideUp, value);
         }
+        public Visibility IsVisible
+        {
+            get => this._isVisible;
+            set => SetProperty(ref this._isVisible, value);
+        }
+
 
         public Tips(string text)
         {

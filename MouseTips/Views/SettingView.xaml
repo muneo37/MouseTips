@@ -166,6 +166,7 @@
                 By="-40"
                 Storyboard.TargetName="TipsButton"
                 Storyboard.TargetProperty="(Canvas.Top)"
+                FillBehavior="Stop"
                 Duration="00:00:0.3" />
         </Storyboard>
         <Storyboard x:Key="StoryboardSlideUpReset">
@@ -442,6 +443,9 @@
         <bh:StoryboardCompletedTrigger Storyboard="{StaticResource StoryboardSlideLeft}">
             <bh:CallMethodAction MethodName="SlideLeftCompEvent" TargetObject="{Binding}" />
         </bh:StoryboardCompletedTrigger>
+        <bh:StoryboardCompletedTrigger Storyboard="{StaticResource StoryboardSlideUp}">
+            <bh:CallMethodAction MethodName="SlideUpCompEvent" TargetObject="{Binding}" />
+        </bh:StoryboardCompletedTrigger>
         <bh:PropertyChangedTrigger Binding="{Binding Visibility, ElementName=root}">
             <bh:InvokeCommandAction Command="{Binding VisibleChangedCommand}" />
         </bh:PropertyChangedTrigger>
@@ -490,11 +494,12 @@
                         <Canvas
                             x:Name="TipsCanvas"
                             Width="370"
-                            Height="40">
+                            Height="40"
+                            Visibility="{Binding IsVisible, Mode=TwoWay}">
                             <Button
                                 x:Name="TipsButton"
-                                Canvas.Top="0"
                                 Canvas.Left="0"
+                                Canvas.Top="0"
                                 Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                                 Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                                 Command="{Binding DataContext.MouseUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
