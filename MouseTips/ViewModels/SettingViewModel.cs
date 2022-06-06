@@ -95,6 +95,20 @@ namespace MouseTips.ViewModels
             }
         }
 
+        private DelegateCommand _inputTextCommand;
+        public DelegateCommand InputTextCommand
+        {
+            get
+            {
+                return this._inputTextCommand ?? (this._inputTextCommand = new DelegateCommand(
+                    p =>
+                    {
+                        var textbox = p as System.Windows.Controls.TextBox;
+                        TipsItems.Add(new Tips(textbox.Text));
+                    }));
+            }
+        }
+
         #endregion
 
         #region メソッド

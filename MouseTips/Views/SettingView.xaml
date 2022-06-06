@@ -218,11 +218,17 @@
             <Button Grid.Column="2" Style="{StaticResource MenuButtonStyle}" />
         </Grid>
         <TextBox
+            x:Name="InputText"
             Grid.Row="1"
             Margin="3"
             Background="{StaticResource ContentBackground}"
             BorderThickness="0"
-            Foreground="{StaticResource DarkForeground}" />
+            Foreground="{StaticResource DarkForeground}" 
+            >
+            <TextBox.InputBindings>
+                <KeyBinding Gesture="Enter" Command="{Binding InputTextCommand}" CommandParameter="{Binding ElementName=InputText}"/>
+            </TextBox.InputBindings>
+        </TextBox>
         <ItemsControl Grid.Row="2" ItemsSource="{Binding TipsItems}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
