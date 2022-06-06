@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using System.Linq;
 
 namespace MouseTips.ViewModels
 {
@@ -19,6 +20,7 @@ namespace MouseTips.ViewModels
         private double _preWindowBottom;
         private BitmapSource _iconImage;
         private ObservableCollection<Tips> _TipsItems = new ObservableCollection<Tips>();
+        private int _archiveIndex;
         #endregion
 
         #region プロパティ
@@ -81,17 +83,12 @@ namespace MouseTips.ViewModels
                     p =>
                     {
                         Tips t = p as Tips;
-                        bool underArchive = false;
-                        foreach (Tips tips in TipsItems)
+                        foreach (var tips in TipsItems.Select((v, i) => new { v, i }))
                         {
-                            if (tips.Text == t.Text)
+                            if (tips.v.Text == t.Text)
                             {
-                                tips.Archive = true;
-                                underArchive = true;
-                            }
-                            if (underArchive)
-                            {
-                                tips.SlideUp = true;
+                                tips.v.Archive = true;
+                                this._archiveIndex = tips.i;
                             }
                         }
                     }));
@@ -143,13 +140,9 @@ namespace MouseTips.ViewModels
         public void SlideLeftCompEvent()
         {
 
-            for (int index = 0; index < TipsItems.Count; index++)
+            for (int index = this._archiveIndex + 1; index < TipsItems.Count; index++)
             {
-                if (TipsItems[index].Archive)
-                {
-                    TipsItems.RemoveAt(index);
-                    break;
-                }
+                TipsItems[index].SlideUp = true;
             }
 
             foreach (Tips tips in TipsItems)
