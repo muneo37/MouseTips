@@ -142,7 +142,20 @@ namespace MouseTips.ViewModels
 
         public void SlideLeftCompEvent()
         {
-            int a = 10;
+
+            for (int index = 0; index < TipsItems.Count; index++)
+            {
+                if (TipsItems[index].Archive)
+                {
+                    TipsItems.RemoveAt(index);
+                    break;
+                }
+            }
+
+            foreach (Tips tips in TipsItems)
+            {
+                tips.SlideUp = false;
+            }
         }
         #endregion
     }

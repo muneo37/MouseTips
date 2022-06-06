@@ -166,7 +166,15 @@
                 Storyboard.TargetProperty="(Canvas.Top)"
                 From="0"
                 To="-40"
+                FillBehavior="Stop"
                 Duration="00:00:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="StoryboardSlideUpReset">
+            <DoubleAnimation
+                Storyboard.TargetName="TipsButton"
+                Storyboard.TargetProperty="(Canvas.Top)"
+                To="0"
+                Duration="00:00:01" />
         </Storyboard>
 
     </Window.Resources>
@@ -257,9 +265,14 @@
                         </DataTrigger>
                         <DataTrigger Binding="{Binding SlideUp}" Value="true">
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource StoryboardSlideUp}"/>
+                                <BeginStoryboard Storyboard="{StaticResource StoryboardSlideUp}" />
                             </DataTrigger.EnterActions>
                         </DataTrigger>
+                        <!--<DataTrigger Binding="{Binding SlideUp}" Value="false">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource StoryboardSlideUpReset}" />
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>-->
                     </DataTemplate.Triggers>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
