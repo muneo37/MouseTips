@@ -178,6 +178,8 @@ namespace MouseTips.ViewModels
         private bool _slideUp;
         private Visibility _isVisible = Visibility.Visible;
 
+        public string BigText { get; set; }
+        public string SubText { get; set; }
         public string Text { get; set; }
         public bool Archive
         {
@@ -198,6 +200,15 @@ namespace MouseTips.ViewModels
 
         public Tips(string text)
         {
+            if (text.Length <= 3)
+            {
+                BigText = text;
+            }
+            else
+            {
+                BigText = text.Substring(0, 3);
+                SubText = text.Substring(3, (text.Length - 3));
+            }
             Text = text;
         }
 

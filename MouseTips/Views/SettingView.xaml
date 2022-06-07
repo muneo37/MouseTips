@@ -164,9 +164,9 @@
         <Storyboard x:Key="StoryboardSlideUp">
             <DoubleAnimation
                 By="-40"
+                FillBehavior="Stop"
                 Storyboard.TargetName="TipsButton"
                 Storyboard.TargetProperty="(Canvas.Top)"
-                FillBehavior="Stop"
                 Duration="00:00:0.3" />
         </Storyboard>
         <Storyboard x:Key="StoryboardSlideUpReset">
@@ -512,10 +512,10 @@
                                             <ColumnDefinition Width="30" />
                                             <ColumnDefinition Width="30" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock
-                                            Grid.Column="0"
-                                            VerticalAlignment="Center"
-                                            Text="{Binding Text}" />
+                                        <TextBlock Grid.Column="0" VerticalAlignment="Center">
+                                            <Run FontSize="20" FontWeight="Bold" Text="{Binding BigText}" />
+                                            <Run FontSize="12" Text="{Binding SubText}" />
+                                        </TextBlock>
                                         <Button Grid.Column="1" Style="{StaticResource MenuButtonStyle}" />
                                         <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" />
                                     </Grid>
