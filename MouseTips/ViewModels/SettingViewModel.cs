@@ -138,9 +138,9 @@ namespace MouseTips.ViewModels
             //Todo
             TipsItems.Add(new Tips("最初"));
             TipsItems.Add(new Tips("2番目"));
-            TipsItems.Add(new Tips("晴れ"));
-            TipsItems.Add(new Tips("テスト用のコメント"));
-            TipsItems.Add(new Tips("テストです。"));
+            //TipsItems.Add(new Tips("晴れ"));
+            //TipsItems.Add(new Tips("テスト用のコメント"));
+            //TipsItems.Add(new Tips("テストです。"));
         }
 
         /// <summary>

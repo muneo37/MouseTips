@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
+using MouseTips.Helper;
 
 namespace MouseTips.ExtendedControls
 {
@@ -92,6 +90,19 @@ namespace MouseTips.ExtendedControls
             this.hourScroll.BlackItem = 5;
             this.minuteScroll.BlackItem = 5;
             this.ampmScroll.BlackItem = 2;
+
+            Rect rect;
+            rect.X = this.Left;
+            rect.Y = this.Top;
+            rect.Width = this.Width;
+            rect.Height = this.Height;
+
+            Rect correctRect = WindowPosControl.CorrectionWindow(rect);
+
+            this.Left = correctRect.X;
+            this.Top = correctRect.Y;
+            this.Width = correctRect.Width;
+            this.Height = correctRect.Height;
         }
     }
 
