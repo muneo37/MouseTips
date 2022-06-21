@@ -138,7 +138,7 @@ namespace MouseTips.ViewModels
             //Todo
             TipsItems.Add(new Tips("最初"));
             TipsItems.Add(new Tips("2番目"));
-            //TipsItems.Add(new Tips("晴れ"));
+            TipsItems.Add(new Tips("晴れ"));
             //TipsItems.Add(new Tips("テスト用のコメント"));
             //TipsItems.Add(new Tips("テストです。"));
         }
@@ -197,6 +197,19 @@ namespace MouseTips.ViewModels
             set => SetProperty(ref this._isVisible, value);
         }
 
+        private DelegateCommand _tipsMenuCommand;
+        public DelegateCommand TipsMenuCommand
+        {
+            get
+            {
+                return this._tipsMenuCommand ?? (this._tipsMenuCommand = new DelegateCommand(
+                    p =>
+                    {
+                        var ret = App.Instance.ShowTipsSettingView();
+                    }));
+
+            }
+        }
 
         public Tips(string text)
         {

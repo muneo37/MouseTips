@@ -525,7 +525,8 @@
                                         <ToggleButton
                                             x:Name="MenuItemButton"
                                             Grid.Column="1"
-                                            Style="{StaticResource MenuButtonStyle}" />
+                                            Style="{StaticResource MenuButtonStyle}"
+                                            Command="{Binding TipsMenuCommand}"/>
                                         <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" />
                                     </Grid>
                                 </Grid>

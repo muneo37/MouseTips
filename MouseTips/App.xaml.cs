@@ -51,10 +51,26 @@
             }
         }
 
+        public bool? ShowTipsSettingView()
+        {
+            var w = new TipsSettingView() { DataContext = new TipsSettingViewModel() };
+            return w.ShowDialog();
+        }
+
         private void Exit_Click(object sender, EventArgs e)
         {
             Shutdown();
         }
+
+        public App()
+        {
+            Instance = this;
+        }
+        /// <summary>
+        /// 現在のインスタンスを取得します。
+        /// </summary>
+        public static App Instance { get; private set; }
+
 
     }
 }
