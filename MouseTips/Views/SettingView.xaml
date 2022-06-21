@@ -525,8 +525,9 @@
                                         <ToggleButton
                                             x:Name="MenuItemButton"
                                             Grid.Column="1"
-                                            Style="{StaticResource MenuButtonStyle}"
-                                            Command="{Binding TipsMenuCommand}"/>
+                                            Command="{Binding DataContext.TipsMenuCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                            CommandParameter="{Binding .}"
+                                            Style="{StaticResource MenuButtonStyle}" />
                                         <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" />
                                     </Grid>
                                 </Grid>
@@ -578,7 +579,6 @@
                                 </Grid>
                             </Canvas>
                         </Canvas>
-
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding Archive}" Value="true">
                                 <DataTrigger.EnterActions>
@@ -593,6 +593,11 @@
                         </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Grid.ZIndex" Value="{Binding ZIndex}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
             </ItemsControl>
         </ScrollViewer>
     </Grid>

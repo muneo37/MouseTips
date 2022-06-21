@@ -96,6 +96,30 @@ namespace MouseTips.ViewModels
             }
         }
 
+        private DelegateCommand _tipsMenuCommand;
+        public DelegateCommand TipsMenuCommand
+        {
+            get
+            {
+                return this._tipsMenuCommand ?? (this._tipsMenuCommand = new DelegateCommand(
+                    p =>
+                    {
+                        Tips t = p as Tips;
+                        foreach (var tips in TipsItems.Select((v, i) => new { v, i }))
+                        {
+                            if (tips.v.Text == t.Text)
+                            {
+                                tips.v.ZIndex = 1;
+                            }
+                            else
+                            {
+                                tips.v.ZIndex = 0;
+                            }
+                        }
+                    }));
+            }
+        }
+
         private DelegateCommand _inputTextCommand;
         public DelegateCommand InputTextCommand
         {
@@ -172,11 +196,15 @@ namespace MouseTips.ViewModels
         #endregion
     }
 
+    /// <summary>
+    /// Tipsクラス
+    /// </summary>
     class Tips : NotificationObject
     {
         private bool _archive;
         private bool _slideUp;
         private Visibility _isVisible = Visibility.Visible;
+        private int _zIndex = 0;
 
         public string BigText { get; set; }
         public string SubText { get; set; }
@@ -196,20 +224,12 @@ namespace MouseTips.ViewModels
             get => this._isVisible;
             set => SetProperty(ref this._isVisible, value);
         }
-
-        private DelegateCommand _tipsMenuCommand;
-        public DelegateCommand TipsMenuCommand
+        public int ZIndex
         {
-            get
-            {
-                return this._tipsMenuCommand ?? (this._tipsMenuCommand = new DelegateCommand(
-                    p =>
-                    {
-                        var ret = App.Instance.ShowTipsSettingView();
-                    }));
-
-            }
+            get => this._zIndex;
+            set => SetProperty(ref this._zIndex, value);
         }
+
 
         public Tips(string text)
         {
