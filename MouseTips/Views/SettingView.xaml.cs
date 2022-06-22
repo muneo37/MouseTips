@@ -11,5 +11,18 @@ namespace MouseTips.Views
         {
             InitializeComponent();
         }
+
+        private void OnDeactibated(object sender, System.EventArgs e)
+        {
+            this.Visibility = Visibility.Hidden;
+        }
+
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.Visibility == Visibility.Visible)
+            {
+                this.Activate();
+            }
+        }
     }
 }

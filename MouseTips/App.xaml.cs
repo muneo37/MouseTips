@@ -10,7 +10,6 @@
     /// </summary>
     public partial class App : Application
     {
-        private static bool _showSetting = false;
         private SettingView _settingView = new SettingView();
         private SettingViewModel _settingViewModel = new SettingViewModel();
 
@@ -38,16 +37,7 @@
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                if (!_showSetting)
-                {
-                    _settingView.Show();
-                    _showSetting = true;
-                }
-                else
-                {
-                    _settingView.Visibility = Visibility.Hidden;
-                    _showSetting = false;
-                }
+                _settingView.Show();
             }
         }
 

@@ -15,6 +15,8 @@
     Height="300"
     d:DataContext="{d:DesignInstance Type=vm:SettingViewModel}"
     AllowsTransparency="True"
+    Deactivated="OnDeactibated"
+    IsVisibleChanged="OnIsVisibleChanged"
     Left="{Binding WindowLeft, Mode=TwoWay}"
     ShowInTaskbar="False"
     Top="{Binding WindowBottom, Mode=TwoWay}"
