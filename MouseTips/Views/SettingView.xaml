@@ -15,8 +15,6 @@
     Height="300"
     d:DataContext="{d:DesignInstance Type=vm:SettingViewModel}"
     AllowsTransparency="True"
-    Deactivated="OnDeactibated"
-    IsVisibleChanged="OnIsVisibleChanged"
     Left="{Binding WindowLeft, Mode=TwoWay}"
     ShowInTaskbar="False"
     Top="{Binding WindowBottom, Mode=TwoWay}"
@@ -32,37 +30,34 @@
         <SolidColorBrush x:Key="ContentBackground1" Color="#272727" />
         <SolidColorBrush x:Key="AccentColor1" Color="CornflowerBlue" />
         <Style x:Key="MenuButtonStyle" TargetType="ToggleButton">
-            <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
-            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource DarkForeground}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleButton">
-                        <Grid>
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}">
                             <Canvas
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
                                 Width="20"
-                                Height="20"
-                                Background="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}">
+                                Height="2"
+                                >
                                 <Ellipse
                                     Canvas.Left="2"
-                                    Canvas.Top="9"
                                     Width="2"
                                     Height="2"
                                     Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" />
                                 <Ellipse
                                     Canvas.Left="9"
-                                    Canvas.Top="9"
                                     Width="2"
                                     Height="2"
                                     Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" />
                                 <Ellipse
                                     Canvas.Left="16"
-                                    Canvas.Top="9"
                                     Width="2"
                                     Height="2"
                                     Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" />
                             </Canvas>
-
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -75,15 +70,16 @@
         </Style>
         <Style x:Key="CloseButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
-            <Setter Property="Background" Value="Transparent" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid>
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                             <Canvas
                                 Width="20"
                                 Height="20"
-                                Background="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                >
                                 <Path
                                     Margin="0"
                                     Data="M5,5 L15,15 M15,5 L5,15"
@@ -130,7 +126,7 @@
                                     RadiusX="5"
                                     RadiusY="5" />
                                 <ContentPresenter
-                                    Margin="3,0,3,0"
+                                    Margin="3,3,3,3"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center" />
                             </Grid>
@@ -457,7 +453,7 @@
     </bh:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -466,13 +462,19 @@
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition />
                 <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Source="{Binding IconImage}" />
             <TextBlock
                 Grid.Column="1"
                 Foreground="{StaticResource AccentColor1}"
-                Text="MouseTips" />
-            <ToggleButton Grid.Column="2" Style="{StaticResource MenuButtonStyle}" />
+                Text="MouseTips" 
+                VerticalAlignment="Center"/>
+            <ToggleButton Margin="3" Grid.Column="2" Style="{StaticResource MenuButtonStyle}" Background="{StaticResource DarkBackground}"/>
+            <Button
+                Margin="3"
+                Grid.Column="3"
+                Style="{StaticResource CloseButtonStyle}" Click="OnCloseClick" Background="{StaticResource DarkBackground}"/>
         </Grid>
         <TextBox
             x:Name="InputText"
@@ -510,7 +512,9 @@
                                 Command="{Binding DataContext.MouseUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                 CommandParameter="{Binding .}"
                                 Style="{StaticResource CardButtonStyle}">
-                                <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}">
+                                <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                                      Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                                      >
                                     <Grid Margin="10,0,10,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -524,62 +528,56 @@
                                                 Text="{Binding BigText}" />
                                             <Run FontSize="12" Text="{Binding SubText}" />
                                         </TextBlock>
-                                        <ToggleButton
-                                            x:Name="MenuItemButton"
-                                            Grid.Column="1"
-                                            Command="{Binding DataContext.TipsMenuCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                                            CommandParameter="{Binding .}"
-                                            Style="{StaticResource MenuButtonStyle}" />
-                                        <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" />
+                                        <Grid Grid.Column="1">
+                                            <ToggleButton Grid.Column="1" x:Name="MenuItemButton" Style="{StaticResource MenuButtonStyle}" Background="{StaticResource ContentBackground}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+                                            <Popup IsOpen="{Binding IsChecked, ElementName=MenuItemButton}" StaysOpen="False">
+                                                <Canvas Width="150" Height="80">
+                                                    <Grid
+                                                        Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                                                        Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
+                                                        Background="{StaticResource ContentBackground1}">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition />
+                                                            <RowDefinition />
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock
+                                                            Grid.Row="0"
+                                                            Grid.Column="0"
+                                                            Margin="3"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="8">
+                                                            Start<LineBreak />
+                                                            Time</TextBlock>
+                                                        <TextBlock
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Margin="5"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="8">
+                                                            Stop<LineBreak />
+                                                            Time</TextBlock>
+                                                        <ex:TimePicker
+                                                            Grid.Row="0"
+                                                            Grid.Column="1"
+                                                            Width="120" />
+                                                        <ex:TimePicker
+                                                            Grid.Row="1"
+                                                            Grid.Column="1"
+                                                            Width="120" />
+                                                    </Grid>
+                                                </Canvas>
+                                            </Popup>
+                                        </Grid>
+                                        <Button Grid.Column="2" Style="{StaticResource CloseButtonStyle}" Background="{StaticResource ContentBackground}" />
                                     </Grid>
                                 </Grid>
                             </Button>
-                            <Canvas
-                                Canvas.Left="190"
-                                Canvas.Top="40"
-                                Width="150"
-                                Height="80"
-                                Visibility="{Binding IsChecked, ElementName=MenuItemButton, Converter={StaticResource BoolToVisible}}">
-                                <Grid
-                                    Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                                    Background="{StaticResource ContentBackground1}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Margin="3"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="8">
-                                        Start<LineBreak />
-                                        Time</TextBlock>
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="8">
-                                        Stop<LineBreak />
-                                        Time</TextBlock>
-                                    <ex:TimePicker
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Width="120" />
-                                    <ex:TimePicker
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Width="120" />
-                                </Grid>
-                            </Canvas>
                         </Canvas>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding Archive}" Value="true">
@@ -595,11 +593,6 @@
                         </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Grid.ZIndex" Value="{Binding ZIndex}" />
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
             </ItemsControl>
         </ScrollViewer>
     </Grid>
