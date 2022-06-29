@@ -19,6 +19,7 @@
     ShowInTaskbar="False"
     Top="{Binding WindowBottom, Mode=TwoWay}"
     WindowStyle="None"
+    Topmost="True"
     mc:Ignorable="d">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisible" />
@@ -530,12 +531,12 @@
                                         </TextBlock>
                                         <Grid Grid.Column="1">
                                             <ToggleButton Grid.Column="1" x:Name="MenuItemButton" Style="{StaticResource MenuButtonStyle}" Background="{StaticResource ContentBackground}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
-                                            <Popup IsOpen="{Binding IsChecked, ElementName=MenuItemButton}" StaysOpen="False">
-                                                <Canvas Width="150" Height="80">
+                                            <Popup IsOpen="{Binding IsChecked, ElementName=MenuItemButton}" StaysOpen="True" AllowsTransparency="False">
+                                                <Canvas Width="150" Height="80" Background="{StaticResource ContentBackground1}" IsHitTestVisible="False">
                                                     <Grid
                                                         Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
                                                         Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Canvas}}"
-                                                        Background="{StaticResource ContentBackground1}">
+                                                        >
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition Width="*" />
