@@ -83,15 +83,9 @@ namespace MouseTips.ViewModels
                 return this._mouseUpCommand ?? (this._mouseUpCommand = new DelegateCommand(
                     p =>
                     {
-                        Tips t = p as Tips;
-                        foreach (var tips in TipsItems.Select((v, i) => new { v, i }))
-                        {
-                            if (tips.v.Text == t.Text)
-                            {
-                                tips.v.Archive = true;
-                                this._archiveIndex = tips.i;
-                            }
-                        }
+                        TipsItems[(int)p].Archive = true;
+                        TipsItems[(int)p].MenuChecked = false;
+                        this._archiveIndex = (int)p;
                     }));
             }
         }
@@ -180,6 +174,8 @@ namespace MouseTips.ViewModels
     {
         private bool _archive;
         private bool _slideUp;
+        private bool _menuChecked;
+        private int _index;
         private Visibility _isVisible = Visibility.Visible;
 
         public string BigText { get; set; }
@@ -199,6 +195,16 @@ namespace MouseTips.ViewModels
         {
             get => this._isVisible;
             set => SetProperty(ref this._isVisible, value);
+        }
+        public bool MenuChecked
+        {
+            get => this._menuChecked;
+            set => SetProperty(ref this._menuChecked, value);
+        }
+        public int Index
+        {
+            get => this._index;
+            set => SetProperty(ref this._index, value);
         }
 
         public Tips(string text)
