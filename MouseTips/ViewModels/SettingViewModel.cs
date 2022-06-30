@@ -6,6 +6,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using System.Linq;
 using System.Windows;
+using System;
 
 namespace MouseTips.ViewModels
 {
@@ -187,6 +188,9 @@ namespace MouseTips.ViewModels
         public string BigText { get; set; }
         public string SubText { get; set; }
         public string Text { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime StopTime { get; set; }
+
         public bool Archive
         {
             get => this._archive;

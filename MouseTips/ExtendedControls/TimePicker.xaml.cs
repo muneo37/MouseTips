@@ -12,11 +12,11 @@ namespace MouseTips.ExtendedControls
     {
         private TimePickerSubView _subView = new TimePickerSubView();
 
-        public readonly static DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(TimeSpan), typeof(TimePicker), new FrameworkPropertyMetadata(default(TimeSpan), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public readonly static DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(DateTime), typeof(TimePicker), new FrameworkPropertyMetadata(default(DateTime), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public TimeSpan Time
+        public DateTime Time
         {
-            get { return (TimeSpan)GetValue(TimeProperty); }
+            get { return (DateTime)GetValue(TimeProperty); }
             set { SetValue(TimeProperty, value); }
         }
 
