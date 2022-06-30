@@ -162,7 +162,13 @@ namespace MouseTips.ViewModels
 
         public void SlideUpCompEvent()
         {
-            TipsItems[this._archiveIndex].IsVisible = Visibility.Collapsed;
+            foreach (Tips tips in TipsItems)
+            {
+                if (tips.Archive == true)
+                {
+                    tips.IsVisible = Visibility.Collapsed;
+                }
+            }
         }
         #endregion
     }
