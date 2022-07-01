@@ -12,11 +12,11 @@ namespace MouseTips.ExtendedControls
     {
         private TimePickerSubView _subView = new TimePickerSubView();
 
-        public readonly static DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(DateTime), typeof(TimePicker), new FrameworkPropertyMetadata(default(DateTime), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public readonly static DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(string), typeof(TimePicker), new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-        public DateTime Time
+        public String Time
         {
-            get { return (DateTime)GetValue(TimeProperty); }
+            get { return (String)GetValue(TimeProperty); }
             set { SetValue(TimeProperty, value); }
         }
 
@@ -47,6 +47,9 @@ namespace MouseTips.ExtendedControls
             this.hourText.Text = _subView.hourScroll.ScrollList[5].Text;
             this.minuteText.Text = _subView.minuteScroll.ScrollList[5].Text;
             this.AmPmText.Text = _subView.ampmScroll.ScrollList[2].Text;
+
+            Time = AmPmText.Text + hourText.Text + ":" + minuteText.Text;
+
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

@@ -184,12 +184,12 @@ namespace MouseTips.ViewModels
         private bool _menuChecked;
         private int _index;
         private Visibility _isVisible = Visibility.Visible;
+        private string _startTime;
+        private string _stopTime;
 
         public string BigText { get; set; }
         public string SubText { get; set; }
         public string Text { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime StopTime { get; set; }
 
         public bool Archive
         {
@@ -216,6 +216,18 @@ namespace MouseTips.ViewModels
             get => this._index;
             set => SetProperty(ref this._index, value);
         }
+
+        public string StartTime
+        {
+            get => this._startTime;
+            set => SetProperty(ref this._startTime, value);
+        }
+        public string StopTime
+        {
+            get => this._stopTime;
+            set => SetProperty(ref this._stopTime, value);
+        }
+
 
         public Tips(string text)
         {
