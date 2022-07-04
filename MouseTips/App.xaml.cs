@@ -41,12 +41,6 @@
             }
         }
 
-        public bool? ShowTipsSettingView()
-        {
-            var w = new TipsSettingView() { DataContext = new TipsSettingViewModel() };
-            return w.ShowDialog();
-        }
-
         private void Exit_Click(object sender, EventArgs e)
         {
             Shutdown();

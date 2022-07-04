@@ -4,9 +4,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using System.Linq;
 using System.Windows;
-using System;
+using System.Text;
 
 namespace MouseTips.ViewModels
 {
@@ -101,6 +100,19 @@ namespace MouseTips.ViewModels
                     {
                         var textbox = p as System.Windows.Controls.TextBox;
                         TipsItems.Add(new Tips(textbox.Text));
+
+                        var dir = Directory.GetCurrentDirectory();
+                        var csvFile = dir + "\\conf.txt";
+
+                        var sw = new StreamWriter(csvFile, false, Encoding.UTF8);
+
+                        foreach (Tips tips in TipsItems)
+                        {
+                            var tipsStr = tips.BigText + "," + tips.SubText + "," + tips.StartTime + "," + tips.StopTime;
+                            sw.WriteLine(tipsStr);
+                        }
+
+                        sw.Close();
                     }));
             }
         }
@@ -182,7 +194,6 @@ namespace MouseTips.ViewModels
         private bool _archive;
         private bool _slideUp;
         private bool _menuChecked;
-        private int _index;
         private Visibility _isVisible = Visibility.Visible;
         private string _startTime;
         private string _stopTime;
@@ -210,11 +221,6 @@ namespace MouseTips.ViewModels
         {
             get => this._menuChecked;
             set => SetProperty(ref this._menuChecked, value);
-        }
-        public int Index
-        {
-            get => this._index;
-            set => SetProperty(ref this._index, value);
         }
 
         public string StartTime
