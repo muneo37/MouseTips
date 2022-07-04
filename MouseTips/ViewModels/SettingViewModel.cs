@@ -143,12 +143,26 @@ namespace MouseTips.ViewModels
             WindowLeft = _screen[0].Bounds.Width - 450;
             ViewTop = WindowBottom - 350;
 
-            //Todo
-            TipsItems.Add(new Tips("最初"));
-            TipsItems.Add(new Tips("2番目"));
-            TipsItems.Add(new Tips("晴れ"));
-            TipsItems.Add(new Tips("テスト用のコメント"));
-            TipsItems.Add(new Tips("テストです。"));
+            var csvFile = dir + "\\conf.txt";
+            if (File.Exists(csvFile))
+            {
+                var sr = new StreamReader(csvFile);
+                while (sr.Peek() != -1)
+                {
+                    string line = sr.ReadLine();
+                    string[] arr = line.Split(',');
+
+                    Tips tip = new Tips(arr[0] + arr[1]);
+                    tip.StartTime = arr[2];
+                    tip.StopTime = arr[3];
+
+                    TipsItems.Add(tip);
+                }
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show(csvFile + " is not found.");
+            }
         }
 
         /// <summary>
