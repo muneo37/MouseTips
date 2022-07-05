@@ -21,6 +21,7 @@ namespace MouseTips.ViewModels
         private string _text;
         private double _windowTop;
         private double _windowLeft;
+        private int _mouseFirstCount;
 
         #endregion
 
@@ -106,8 +107,15 @@ namespace MouseTips.ViewModels
             }
 
             var val = total / 30;
-            if (val > 40)
+            if (val > 20)
             {
+                foreach (Screen s in _screen)
+                {
+                    if (s.Bounds.X < point.X && point.X < (s.Bounds.X + s.Bounds.Width))
+                    {
+                        ScreenBottom = s.Bounds.Height;
+                    }
+                }
                 return true;
             }
 
@@ -136,6 +144,15 @@ namespace MouseTips.ViewModels
 
         }
 
+        private DateTime ConvertTime(string time)
+        {
+            DateTime now = DateTime.Now;
+            string[] arr = time.Split(":");
+            int h = Int32.Parse(arr[0]);
+            int m = Int32.Parse(arr[1]);
+            DateTime Time = new DateTime(now.Year, now.Month, now.Day, h, m, 00);
+            return Time;
+        }
 
         #endregion
 
@@ -196,18 +213,53 @@ namespace MouseTips.ViewModels
         /// <param name="e">イベントデータ</param>
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (!_onDisplay)
-            {
-                //座標値取得
-                Point point = GetMousePosition();
 
-                if (MouseFirst(point))
-                {//マウスが高速移動した
-                    return;
+            //座標値取得
+            Point point = GetMousePosition();
+
+            if (MouseFirst(point))
+            {//マウスが高速移動した
+                if (!_onDisplay)
+                {
+                    if (SettingViewModel.TipsItems.Count <= _mouseFirstCount)
+                    {
+                        _mouseFirstCount = 0;
+                    }
+
+                    if (SettingViewModel.TipsItems[_mouseFirstCount].Archive == false)
+                    {
+
+                        DateTime now = DateTime.Now;
+                        if (SettingViewModel.TipsItems[_mouseFirstCount].StartTime != "")
+                        {
+                            var startTime = ConvertTime(SettingViewModel.TipsItems[_mouseFirstCount].StartTime);
+                            if (now < startTime)
+                            {
+                                return;
+                            }
+                        }
+                        if (SettingViewModel.TipsItems[_mouseFirstCount].StopTime != "")
+                        {
+                            var stopTime = ConvertTime(SettingViewModel.TipsItems[_mouseFirstCount].StopTime);
+                            if (stopTime < now)
+                            {
+                                return;
+                            }
+                        }
+                        Text = SettingViewModel.TipsItems[_mouseFirstCount].Text;
+                        _onDisplay = true;
+                        WindowTop = point.Y;
+                        WindowLeft = point.X;
+                        FadeIn = true;
+                    }
+                    _mouseFirstCount++;
                 }
+            }
 
-                if (OnScreenTop(point))
-                {//画面の上にマウスが来た
+            if (OnScreenTop(point))
+            {//画面の上にマウスが来た
+                if (!_onDisplay)
+                {
                     _onDisplay = true;
                     WindowTop = point.Y;
                     WindowLeft = point.X;

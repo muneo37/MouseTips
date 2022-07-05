@@ -20,16 +20,15 @@ namespace MouseTips.ViewModels
         private bool _slideUp;
         private double _preWindowBottom;
         private BitmapSource _iconImage;
-        private ObservableCollection<Tips> _TipsItems = new ObservableCollection<Tips>();
+        private static ObservableCollection<Tips> _tipsItems = new ObservableCollection<Tips>();
         private int _archiveIndex;
         #endregion
 
         #region プロパティ
 
-        public ObservableCollection<Tips> TipsItems
+        public static ObservableCollection<Tips> TipsItems
         {
-            get => this._TipsItems;
-            set => SetProperty(ref this._TipsItems, value);
+            get => _tipsItems;
         }
 
         public double WindowBottom
@@ -83,8 +82,8 @@ namespace MouseTips.ViewModels
                 return this._mouseUpCommand ?? (this._mouseUpCommand = new DelegateCommand(
                     p =>
                     {
-                        TipsItems[(int)p].Archive = true;
-                        TipsItems[(int)p].MenuChecked = false;
+                        _tipsItems[(int)p].Archive = true;
+                        _tipsItems[(int)p].MenuChecked = false;
                         this._archiveIndex = (int)p;
                     }));
             }

@@ -48,7 +48,22 @@ namespace MouseTips.ExtendedControls
             this.minuteText.Text = _subView.minuteScroll.ScrollList[5].Text;
             this.AmPmText.Text = _subView.ampmScroll.ScrollList[2].Text;
 
-            Time = AmPmText.Text + hourText.Text + ":" + minuteText.Text;
+            if (AmPmText.Text == "PM")
+            {
+                if (hourText.Text != "12")
+                {
+                    int hour = Int32.Parse(hourText.Text);
+                    hourText.Text = (hour + 12).ToString();
+                }
+                else
+                {
+                    if (hourText.Text == "12")
+                    {
+                        hourText.Text = "00";
+                    }
+                }
+            }
+            Time = hourText.Text + ":" + minuteText.Text;
 
         }
 
