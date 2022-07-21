@@ -203,6 +203,7 @@ namespace MouseTips.ViewModels
 
                 if (MouseFirst(point))
                 {//マウスが高速移動した
+
                     return;
                 }
 

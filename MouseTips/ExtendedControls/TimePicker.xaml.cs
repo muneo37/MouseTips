@@ -17,7 +17,11 @@ namespace MouseTips.ExtendedControls
         public string Time
         {
             get { return (string)GetValue(TimeProperty); }
-            set { SetValue(TimeProperty, value); }
+            set
+            {
+                SetValue(TimeProperty, value);
+                SetTime(value);
+            }
         }
 
         private static void OnTimePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -27,6 +31,18 @@ namespace MouseTips.ExtendedControls
             timePicker.Time = e.NewValue as string;
         }
 
+        private void SetTime(string time)
+        {
+            if (time == "")
+            {
+                return;
+            }
+            this.AmPmText.Text = time.Substring(0, 2);
+            var timeNum = time.Substring(2, time.Length - 2);
+            string[] arr = timeNum.Split(":");
+            this.hourText.Text = arr[0];
+            this.minuteText.Text = arr[1];
+        }
 
         public TimePicker()
         {
