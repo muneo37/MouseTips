@@ -12,12 +12,19 @@ namespace MouseTips.ExtendedControls
     {
         private TimePickerSubView _subView = new TimePickerSubView();
 
-        public readonly static DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(string), typeof(TimePicker), new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        public readonly static DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(string), typeof(TimePicker), new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnTimePropertyChanged)));
 
-        public String Time
+        public string Time
         {
-            get { return (String)GetValue(TimeProperty); }
+            get { return (string)GetValue(TimeProperty); }
             set { SetValue(TimeProperty, value); }
+        }
+
+        private static void OnTimePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            TimePicker timePicker = sender as TimePicker;
+
+            timePicker.Time = e.NewValue as string;
         }
 
 
@@ -30,7 +37,6 @@ namespace MouseTips.ExtendedControls
             this.AmPmText.Text = "AM";
 
         }
-
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
