@@ -138,6 +138,19 @@ namespace MouseTips.ViewModels
 
         }
 
+        private string ConvertTime(string time)
+        {
+            if (time == "")
+            {
+                return ("");
+            }
+
+            var amPm = time.Substring(0, 2);
+            var timeNum = time.Substring(2, time.Length - 2);
+            string[] arr = timeNum.Split(":");
+
+
+        }
 
         #endregion
 
