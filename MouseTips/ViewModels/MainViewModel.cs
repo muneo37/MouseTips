@@ -148,7 +148,7 @@ namespace MouseTips.ViewModels
         private DateTime ConvertTime(string time)
         {
             var now = DateTime.Now;
-            if (time == "")
+            if (time == "" || time == null)
             {
                 return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
             }
@@ -268,6 +268,11 @@ namespace MouseTips.ViewModels
                 {//マウスが高速移動した
                     if (!_onDisplay)
                     {
+                        if (SettingViewModel.TipsItems.Count == 0)
+                        {
+                            return;
+                        }
+
                         if (SettingViewModel.TipsItems.Count <= _mouseFirstCount)
                         {
                             _mouseFirstCount = 0;
