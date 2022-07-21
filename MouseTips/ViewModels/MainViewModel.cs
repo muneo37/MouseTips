@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using MouseTips.ViewModels;
 
 namespace MouseTips.ViewModels
 {
@@ -21,6 +22,7 @@ namespace MouseTips.ViewModels
         private string _text;
         private double _windowTop;
         private double _windowLeft;
+        private int _mouseFirstCount;
 
         #endregion
 
@@ -203,7 +205,41 @@ namespace MouseTips.ViewModels
 
                 if (MouseFirst(point))
                 {//マウスが高速移動した
+                    if (!_onDisplay)
+                    {
+                        if (SettingViewModel.TipsItems.Count <= _mouseFirstCount)
+                        {
+                            _mouseFirstCount = 0;
+                        }
 
+                        if (SettingViewModel.TipsItems[_mouseFirstCount].Archive == false)
+                        {
+
+                            DateTime now = DateTime.Now;
+                            if (SettingViewModel.TipsItems[_mouseFirstCount].StartTime != "")
+                            {
+                                var startTime = ConvertTime(SettingViewModel.TipsItems[_mouseFirstCount].StartTime);
+                                if (now < startTime)
+                                {
+                                    return;
+                                }
+                            }
+                            if (SettingViewModel.TipsItems[_mouseFirstCount].StopTime != "")
+                            {
+                                var stopTime = ConvertTime(SettingViewModel.TipsItems[_mouseFirstCount].StopTime);
+                                if (stopTime < now)
+                                {
+                                    return;
+                                }
+                            }
+                            Text = SettingViewModel.TipsItems[_mouseFirstCount].Text;
+                            _onDisplay = true;
+                            WindowTop = point.Y;
+                            WindowLeft = point.X;
+                            FadeIn = true;
+                        }
+                        _mouseFirstCount++;
+                    }
                     return;
                 }
 
