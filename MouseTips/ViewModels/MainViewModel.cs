@@ -138,18 +138,59 @@ namespace MouseTips.ViewModels
 
         }
 
-        private string ConvertTime(string time)
+        private DateTime ConvertTime(string time)
         {
+            var now = DateTime.Now;
             if (time == "")
             {
-                return ("");
+                return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
             }
 
             var amPm = time.Substring(0, 2);
             var timeNum = time.Substring(2, time.Length - 2);
             string[] arr = timeNum.Split(":");
 
+            int hour = 0, minute = 0;
+            if (amPm == "PM")
+            {
+                if (arr[0] != "12")
+                {
+                    if (!int.TryParse(arr[0], out hour))
+                    {
+                        return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
+                    }
+                    hour = hour + 12;
+                }
+                else
+                {
+                    if (arr[0] == "12")
+                    {
+                        hour = 0;
+                    }
+                    else
+                    {
+                        if (!int.TryParse(arr[0], out hour))
+                        {
+                            return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (!int.TryParse(arr[0], out hour))
+                {
+                    return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
+                }
+            }
 
+
+            if (!int.TryParse(arr[1], out minute))
+            {
+                return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
+            }
+
+            return new DateTime(now.Year, now.Month, now.Day, hour, minute, 0);
         }
 
         #endregion
@@ -234,6 +275,7 @@ namespace MouseTips.ViewModels
                                 var startTime = ConvertTime(SettingViewModel.TipsItems[_mouseFirstCount].StartTime);
                                 if (now < startTime)
                                 {
+                                    _mouseFirstCount++;
                                     return;
                                 }
                             }
@@ -242,6 +284,7 @@ namespace MouseTips.ViewModels
                                 var stopTime = ConvertTime(SettingViewModel.TipsItems[_mouseFirstCount].StopTime);
                                 if (stopTime < now)
                                 {
+                                    _mouseFirstCount++;
                                     return;
                                 }
                             }
