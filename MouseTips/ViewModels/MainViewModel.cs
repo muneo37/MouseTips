@@ -108,8 +108,15 @@ namespace MouseTips.ViewModels
             }
 
             var val = total / 30;
-            if (val > 40)
+            if (val > 20)
             {
+                foreach (Screen s in _screen)
+                {
+                    if (s.Bounds.X < point.X && point.X < (s.Bounds.X + s.Bounds.Width))
+                    {
+                        ScreenBottom = s.Bounds.Height;
+                    }
+                }
                 return true;
             }
 
