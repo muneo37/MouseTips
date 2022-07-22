@@ -221,7 +221,7 @@
         </Storyboard>
         <Storyboard x:Key="StoryboardSlideLeft">
             <DoubleAnimation
-                FillBehavior="Stop"
+                FillBehavior="HoldEnd"
                 Storyboard.TargetName="TipsButton"
                 Storyboard.TargetProperty="(Canvas.Left)"
                 From="0"
@@ -697,7 +697,7 @@
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding Archive}" Value="true">
                                 <DataTrigger.EnterActions>
-                                    <BeginStoryboard Storyboard="{StaticResource StoryboardSlideLeft}" />
+                                    <BeginStoryboard x:Name="beginSlideLeft" Storyboard="{StaticResource StoryboardSlideLeft}" />
                                 </DataTrigger.EnterActions>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding SlideUp}" Value="true">

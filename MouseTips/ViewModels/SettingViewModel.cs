@@ -204,6 +204,13 @@ namespace MouseTips.ViewModels
             WindowLeft = _screen[0].Bounds.Width - 450;
             ViewTop = WindowBottom - 350;
 
+            SetTips(dir);
+        }
+
+        private void SetTips(string dir)
+        {
+            TipsItems.Clear();
+
             var csvFile = dir + "\\conf.txt";
             if (File.Exists(csvFile))
             {
@@ -261,10 +268,10 @@ namespace MouseTips.ViewModels
 
         public void TipsResetCompEvent()
         {
-            foreach (Tips tips in TipsItems)
-            {
-                tips.Reset = false;
-            }
+            string dir = Directory.GetCurrentDirectory();
+
+            SetTips(dir);
+
         }
         #endregion
     }
