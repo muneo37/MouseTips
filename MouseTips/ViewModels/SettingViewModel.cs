@@ -22,6 +22,9 @@ namespace MouseTips.ViewModels
         private BitmapSource _iconImage;
         private static ObservableCollection<Tips> _tipsItems = new ObservableCollection<Tips>();
         private int _archiveIndex;
+        private bool _appMenuChecked;
+        private string _playContent = "stop";
+        private bool _playChecked = true;
         #endregion
 
         #region プロパティ
@@ -56,6 +59,35 @@ namespace MouseTips.ViewModels
         {
             get => this._iconImage;
             set => SetProperty(ref this._iconImage, value);
+        }
+
+        public bool AppMenuChecked
+        {
+            get => this._appMenuChecked;
+            set => SetProperty(ref this._appMenuChecked, value);
+        }
+
+        public string PlayContent
+        {
+            get => this._playContent;
+            set => SetProperty(ref this._playContent, value);
+        }
+
+        public bool PlayChecked
+        {
+            get => this._playChecked;
+            set
+            {
+                if (value)
+                {
+                    PlayContent = "stop";
+                }
+                else
+                {
+                    PlayContent = "play";
+                }
+                SetProperty(ref this._playChecked, value);
+            }
         }
 
         #endregion
@@ -116,6 +148,36 @@ namespace MouseTips.ViewModels
             }
         }
 
+        private DelegateCommand _exitCommand;
+        public DelegateCommand ExitCommand
+        {
+            get
+            {
+                return this._exitCommand ?? (this._exitCommand = new DelegateCommand(
+                    p =>
+                    {
+                        System.Windows.Application.Current.Shutdown();
+                    }));
+            }
+        }
+
+        private DelegateCommand _resetCommand;
+        public DelegateCommand ResetCommand
+        {
+            get
+            {
+                return this._resetCommand ?? (this._resetCommand = new DelegateCommand(
+                    p =>
+                    {
+                        foreach (Tips tips in TipsItems)
+                        {
+                            tips.Archive = false;
+                            tips.IsVisible = Visibility.Visible;
+                            tips.Reset = true;
+                        }
+                    }));
+            }
+        }
 
         #endregion
 
@@ -196,6 +258,14 @@ namespace MouseTips.ViewModels
                 }
             }
         }
+
+        public void TipsResetCompEvent()
+        {
+            foreach (Tips tips in TipsItems)
+            {
+                tips.Reset = false;
+            }
+        }
         #endregion
     }
 
@@ -207,9 +277,11 @@ namespace MouseTips.ViewModels
         private bool _archive;
         private bool _slideUp;
         private bool _menuChecked;
+        private bool _reset = false;
         private Visibility _isVisible = Visibility.Visible;
         private string _startTime;
         private string _stopTime;
+
 
         public string BigText { get; set; }
         public string SubText { get; set; }
@@ -246,7 +318,11 @@ namespace MouseTips.ViewModels
             get => this._stopTime;
             set => SetProperty(ref this._stopTime, value);
         }
-
+        public bool Reset
+        {
+            get => this._reset;
+            set => SetProperty(ref this._reset, value);
+        }
 
         public Tips(string text)
         {
