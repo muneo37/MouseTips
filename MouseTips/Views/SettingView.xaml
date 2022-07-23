@@ -676,12 +676,14 @@
                                                             Grid.Row="0"
                                                             Grid.Column="1"
                                                             Width="120"
-                                                            Time="{Binding StartTime}" />
+                                                            Time="{Binding StartTime}"
+                                                            MyCommand="{Binding DataContext.SaveTipsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
                                                         <ex:TimePicker
                                                             Grid.Row="1"
                                                             Grid.Column="1"
                                                             Width="120"
-                                                            Time="{Binding StopTime}" />
+                                                            Time="{Binding StopTime}"
+                                                            MyCommand="{Binding DataContext.SaveTipsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
                                                     </Grid>
                                                 </Canvas>
                                             </Popup>

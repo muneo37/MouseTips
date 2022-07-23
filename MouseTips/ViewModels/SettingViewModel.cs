@@ -134,7 +134,9 @@ namespace MouseTips.ViewModels
                     p =>
                     {
                         var textbox = p as System.Windows.Controls.TextBox;
-                        TipsItems.Add(new Tips(textbox.Text));
+                        var tips = new Tips(textbox.Text);
+                        tips.OnSaveTisp += SaveTips;
+                        TipsItems.Add(tips);
 
                         SaveTips();
 
@@ -169,6 +171,19 @@ namespace MouseTips.ViewModels
                             tips.IsVisible = Visibility.Visible;
                             tips.Reset = true;
                         }
+                    }));
+            }
+        }
+
+        private DelegateCommand _saveTipsCommand;
+        public DelegateCommand SaveTipsCommand
+        {
+            get
+            {
+                return this._saveTipsCommand ?? (this._saveTipsCommand = new DelegateCommand(
+                    p =>
+                    {
+                        SaveTips();
                     }));
             }
         }
@@ -216,6 +231,7 @@ namespace MouseTips.ViewModels
                     string[] arr = line.Split(',');
 
                     Tips tip = new Tips(arr[0] + arr[1]);
+                    tip.OnSaveTisp += SaveTips;
                     tip.StartTime = arr[2];
                     tip.StopTime = arr[3];
 
@@ -228,7 +244,7 @@ namespace MouseTips.ViewModels
             }
         }
 
-        private void SaveTips()
+        public void SaveTips()
         {
             var dir = Directory.GetCurrentDirectory();
             var csvFile = dir + "\\conf.txt";
@@ -285,6 +301,7 @@ namespace MouseTips.ViewModels
 
         }
         #endregion
+
     }
 
     /// <summary>
@@ -299,7 +316,6 @@ namespace MouseTips.ViewModels
         private Visibility _isVisible = Visibility.Visible;
         private string _startTime;
         private string _stopTime;
-
 
         public string BigText { get; set; }
         public string SubText { get; set; }
@@ -355,6 +371,11 @@ namespace MouseTips.ViewModels
             }
             Text = text;
         }
+
+        #region デリゲート
+        public delegate void OnSaveTispDelegate();
+        public OnSaveTispDelegate OnSaveTisp;
+        #endregion
 
     }
 }

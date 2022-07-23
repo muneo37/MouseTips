@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MouseTips.ExtendedControls
@@ -23,6 +24,18 @@ namespace MouseTips.ExtendedControls
                 SetTime(value);
             }
         }
+
+        public ICommand MyCommand
+        {
+            get { return (ICommand)GetValue(MyCommandProperty); }
+            set { SetValue(MyCommandProperty, value); }
+        }
+        public static readonly DependencyProperty MyCommandProperty =
+            DependencyProperty.Register(
+                "MyCommand",                    // プロパティ名
+                typeof(ICommand),               // プロパティの型
+                typeof(TimePicker),      // プロパティを所有する型＝このクラスの名前
+                new PropertyMetadata(null));    // 初期値
 
         private static void OnTimePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -71,7 +84,7 @@ namespace MouseTips.ExtendedControls
             this.AmPmText.Text = _subView.ampmScroll.ScrollList[2].Text;
 
             Time = AmPmText.Text + hourText.Text + ":" + minuteText.Text;
-
+            MyCommand.Execute(this);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
