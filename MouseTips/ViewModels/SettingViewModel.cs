@@ -144,6 +144,21 @@ namespace MouseTips.ViewModels
             }
         }
 
+        private DelegateCommand _removeTipsCommand;
+        public DelegateCommand RemoveTipsCommand
+        {
+            get
+            {
+                return this._removeTipsCommand ?? (this._removeTipsCommand = new DelegateCommand(
+                    p =>
+                    {
+                        var tips = p as Tips;
+                        TipsItems.Remove(tips);
+                    }));
+            }
+        }
+
+
         private DelegateCommand _exitCommand;
         public DelegateCommand ExitCommand
         {
