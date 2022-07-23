@@ -259,7 +259,7 @@ namespace MouseTips.ViewModels
         /// <param name="e">イベントデータ</param>
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (!_onDisplay)
+            if (SettingViewModel.Play == true)
             {
                 //座標値取得
                 Point point = GetMousePosition();
@@ -313,12 +313,15 @@ namespace MouseTips.ViewModels
 
                 if (OnScreenTop(point))
                 {//画面の上にマウスが来た
-                    _onDisplay = true;
-                    WindowTop = point.Y;
-                    WindowLeft = point.X;
-                    var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
-                    Text = DateTime.Now.ToString("MM/dd\r\n") + dayOfWeek + DateTime.Now.ToString("\r\nHH:mm:ss");
-                    FadeIn = true;
+                    if (!_onDisplay)
+                    {
+                        _onDisplay = true;
+                        WindowTop = point.Y;
+                        WindowLeft = point.X;
+                        var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
+                        Text = DateTime.Now.ToString("MM/dd\r\n") + dayOfWeek + DateTime.Now.ToString("\r\nHH:mm:ss");
+                        FadeIn = true;
+                    }
                 }
             }
         }

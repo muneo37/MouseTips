@@ -25,9 +25,12 @@ namespace MouseTips.ViewModels
         private bool _appMenuChecked;
         private string _playContent = "stop";
         private bool _playChecked = true;
+
         #endregion
 
         #region プロパティ
+
+        public static bool Play { get; private set; } = true;
 
         public static ObservableCollection<Tips> TipsItems
         {
@@ -80,13 +83,14 @@ namespace MouseTips.ViewModels
             {
                 if (value)
                 {
-                    PlayContent = "stop";
+                    this.PlayContent = "stop";
                 }
                 else
                 {
-                    PlayContent = "play";
+                    this.PlayContent = "play";
                 }
-                SetProperty(ref this._playChecked, value);
+                SetProperty(ref _playChecked, value);
+                Play = value;
             }
         }
 
