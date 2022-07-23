@@ -154,6 +154,7 @@ namespace MouseTips.ViewModels
                     {
                         var tips = p as Tips;
                         TipsItems.Remove(tips);
+                        SaveTips();
                     }));
             }
         }
