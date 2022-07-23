@@ -136,18 +136,8 @@ namespace MouseTips.ViewModels
                         var textbox = p as System.Windows.Controls.TextBox;
                         TipsItems.Add(new Tips(textbox.Text));
 
-                        var dir = Directory.GetCurrentDirectory();
-                        var csvFile = dir + "\\conf.txt";
+                        SaveTips();
 
-                        var sw = new StreamWriter(csvFile, false, Encoding.UTF8);
-
-                        foreach (Tips tips in TipsItems)
-                        {
-                            var tipsStr = tips.BigText + "," + tips.SubText + "," + tips.StartTime + "," + tips.StopTime;
-                            sw.WriteLine(tipsStr);
-                        }
-
-                        sw.Close();
                     }));
             }
         }
@@ -192,8 +182,7 @@ namespace MouseTips.ViewModels
         public SettingViewModel()
         {
             //exeアイコンを表示
-            string dir = Directory.GetCurrentDirectory();
-            string exe = dir + "\\MouseTips.exe";
+            string exe = Directory.GetCurrentDirectory() + "\\MouseTips.exe";
 
             var path = @exe;
             var icon = System.Drawing.Icon.ExtractAssociatedIcon(path);
@@ -208,11 +197,13 @@ namespace MouseTips.ViewModels
             WindowLeft = _screen[0].Bounds.Width - 450;
             ViewTop = WindowBottom - 350;
 
-            SetTips(dir);
+            LoadTips();
         }
 
-        private void SetTips(string dir)
+        private void LoadTips()
         {
+            string dir = Directory.GetCurrentDirectory();
+
             TipsItems.Clear();
 
             var csvFile = dir + "\\conf.txt";
@@ -235,6 +226,22 @@ namespace MouseTips.ViewModels
             {
                 System.Windows.Forms.MessageBox.Show(csvFile + " is not found.");
             }
+        }
+
+        private void SaveTips()
+        {
+            var dir = Directory.GetCurrentDirectory();
+            var csvFile = dir + "\\conf.txt";
+
+            var sw = new StreamWriter(csvFile, false, Encoding.UTF8);
+
+            foreach (Tips tips in TipsItems)
+            {
+                var tipsStr = tips.BigText + "," + tips.SubText + "," + tips.StartTime + "," + tips.StopTime;
+                sw.WriteLine(tipsStr);
+            }
+
+            sw.Close();
         }
 
         /// <summary>
@@ -274,7 +281,7 @@ namespace MouseTips.ViewModels
         {
             string dir = Directory.GetCurrentDirectory();
 
-            SetTips(dir);
+            LoadTips();
 
         }
         #endregion
