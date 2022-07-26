@@ -581,7 +581,7 @@
         <TextBox
             x:Name="InputText"
             Grid.Row="1"
-            Margin="3"
+            Margin="10, 3, 10, 3"
             Background="{StaticResource ContentBackground}"
             BorderThickness="0"
             Foreground="{StaticResource DarkForeground}">

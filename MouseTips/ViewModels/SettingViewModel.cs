@@ -140,6 +140,8 @@ namespace MouseTips.ViewModels
 
                         SaveTips();
 
+                        textbox.Text = "";
+
                     }));
             }
         }
