@@ -108,7 +108,7 @@ namespace MouseTips.ViewModels
             }
 
             var val = total / 30;
-            if (val > 20)
+            if (val > 30)
             {
                 foreach (Screen s in _screen)
                 {
@@ -291,7 +291,7 @@ namespace MouseTips.ViewModels
                                     return;
                                 }
                             }
-                            if (SettingViewModel.TipsItems[_mouseFirstCount].StopTime != "")
+                            if (SettingViewModel.TipsItems[_mouseFirstCount].StopTime != "" && SettingViewModel.TipsItems[_mouseFirstCount].StopTime != null)
                             {
                                 var stopTime = ConvertTime(SettingViewModel.TipsItems[_mouseFirstCount].StopTime);
                                 if (stopTime < now)
