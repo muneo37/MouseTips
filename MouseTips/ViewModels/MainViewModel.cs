@@ -14,7 +14,8 @@ namespace MouseTips.ViewModels
         private Queue<double> _queue = new Queue<double>();
         private List<Screen> _screen = new List<Screen>();
         private Point _prePoint;
-        private bool _onDisplay;
+        private bool _onMouseMoveDisplay;
+        private bool _onTopDisplay;
         private double _screenBottom;
         private bool _fadeIn = false;
         private bool _drop = false;
@@ -245,6 +246,7 @@ namespace MouseTips.ViewModels
             FadeIn = false;
             Drop = false;
             FadeOut = false;
+            _onTopDisplay = false;
 
             _readyTimer.Tick += ready_Tick;
             _readyTimer.Interval = TimeSpan.FromMinutes(10);
@@ -270,7 +272,7 @@ namespace MouseTips.ViewModels
 
                 if (MouseFirst(point))
                 {//マウスが高速移動した
-                    if (!_onDisplay)
+                    if (!_onMouseMoveDisplay)
                     {
                         if (SettingViewModel.TipsItems.Count == 0)
                         {
@@ -305,7 +307,7 @@ namespace MouseTips.ViewModels
                                 }
                             }
                             Text = SettingViewModel.TipsItems[_mouseFirstCount].Text;
-                            _onDisplay = true;
+                            _onMouseMoveDisplay = true;
                             WindowTop = point.Y;
                             WindowLeft = point.X;
                             FadeIn = true;
@@ -317,9 +319,9 @@ namespace MouseTips.ViewModels
 
                 if (OnScreenTop(point))
                 {//画面の上にマウスが来た
-                    if (!_onDisplay)
+                    if (!_onTopDisplay)
                     {
-                        _onDisplay = true;
+                        _onTopDisplay = true;
                         WindowTop = point.Y;
                         WindowLeft = point.X;
                         var dayOfWeek = DateTime.Now.DayOfWeek.ToString();
@@ -332,7 +334,7 @@ namespace MouseTips.ViewModels
 
         private void ready_Tick(object sender, EventArgs e)
         {
-            _onDisplay = false;
+            _onMouseMoveDisplay = false;
             _readyTimer.Stop();
         }
         #endregion
