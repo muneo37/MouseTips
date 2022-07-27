@@ -23,6 +23,7 @@ namespace MouseTips.ViewModels
         private double _windowTop;
         private double _windowLeft;
         private int _mouseFirstCount;
+        DispatcherTimer _readyTimer = new DispatcherTimer();
 
         #endregion
 
@@ -241,10 +242,13 @@ namespace MouseTips.ViewModels
         /// </summary>
         public void FadeOutCompEvent()
         {
-            _onDisplay = false;
             FadeIn = false;
             Drop = false;
             FadeOut = false;
+
+            _readyTimer.Tick += ready_Tick;
+            _readyTimer.Interval = TimeSpan.FromMinutes(10);
+            _readyTimer.Start();
         }
 
         #endregion
@@ -326,6 +330,11 @@ namespace MouseTips.ViewModels
             }
         }
 
+        private void ready_Tick(object sender, EventArgs e)
+        {
+            _onDisplay = false;
+            _readyTimer.Stop();
+        }
         #endregion
 
 
