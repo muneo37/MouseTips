@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Threading;
 using MouseTips.ViewModels;
 
@@ -24,6 +25,9 @@ namespace MouseTips.ViewModels
         private double _windowTop;
         private double _windowLeft;
         private int _mouseFirstCount;
+        private System.Windows.Media.Brush _foreground = new SolidColorBrush(Colors.White);
+        private System.Windows.Media.Brush[] _textBrushs = { new SolidColorBrush(Colors.Aqua), new SolidColorBrush(Colors.Azure), new SolidColorBrush(Colors.Chocolate), new SolidColorBrush(Colors.LawnGreen),
+                                                             new SolidColorBrush(Colors.LightPink), new SolidColorBrush(Colors.Purple), new SolidColorBrush(Colors.SlateGray), new SolidColorBrush(Colors.White)};
         DispatcherTimer _readyTimer = new DispatcherTimer();
 
         #endregion
@@ -70,6 +74,12 @@ namespace MouseTips.ViewModels
         {
             get => this._windowLeft;
             set => SetProperty(ref this._windowLeft, value);
+        }
+
+        public System.Windows.Media.Brush Foreground
+        {
+            get => this._foreground;
+            set => SetProperty(ref this._foreground, value);
         }
 
         #endregion
@@ -265,6 +275,7 @@ namespace MouseTips.ViewModels
         /// <param name="e">イベントデータ</param>
         private void timer_Tick(object sender, EventArgs e)
         {
+
             if (SettingViewModel.Play == true)
             {
                 //座標値取得
@@ -306,6 +317,8 @@ namespace MouseTips.ViewModels
                                     return;
                                 }
                             }
+                            var random = new Random();
+                            Foreground = _textBrushs[random.Next(0, _textBrushs.Length)];
                             Text = SettingViewModel.TipsItems[_mouseFirstCount].Text;
                             _onMouseMoveDisplay = true;
                             WindowTop = point.Y;
@@ -321,6 +334,8 @@ namespace MouseTips.ViewModels
                 {//画面の上にマウスが来た
                     if (!_onTopDisplay)
                     {
+                        var random = new Random();
+                        Foreground = _textBrushs[random.Next(0, _textBrushs.Length)];
                         _onTopDisplay = true;
                         WindowTop = point.Y;
                         WindowLeft = point.X;

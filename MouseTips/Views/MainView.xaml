@@ -85,7 +85,7 @@
                 x:Name="timeText"
                 Canvas.Top="0"
                 FontSize="60"
-                Foreground="White"
+                Foreground="{Binding Foreground}"
                 Opacity="0.0"
                 Text="{Binding Text}" />
         </Canvas>
