@@ -289,9 +289,17 @@ namespace MouseTips.ViewModels
 
         public void SlideLeftCompEvent()
         {
-            for (int index = this._archiveIndex + 1; index < TipsItems.Count; index++)
+
+            if ((this._archiveIndex + 1) == TipsItems.Count)
             {
-                TipsItems[index].SlideUp = true;
+                SlideUpCompEvent();
+            }
+            else
+            {
+                for (int index = this._archiveIndex + 1; index < TipsItems.Count; index++)
+                {
+                    TipsItems[index].SlideUp = true;
+                }
             }
 
             foreach (Tips tips in TipsItems)

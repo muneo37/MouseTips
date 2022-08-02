@@ -259,7 +259,7 @@ namespace MouseTips.ViewModels
             _onTopDisplay = false;
 
             _readyTimer.Tick += ready_Tick;
-            _readyTimer.Interval = TimeSpan.FromMinutes(10);
+            _readyTimer.Interval = TimeSpan.FromMinutes(5);
             _readyTimer.Start();
         }
 
